@@ -15,7 +15,9 @@ namespace Assets.Scripts.controller.config
             commandsMap.Map(GameEvent.StartGame, typeof(StartGameCommand));
             commandsMap.Map(GameEvent.GameComplete, typeof(ResultGameCommand));
             //commandsMap.Map(GameEvent.Deadlock, typeof(ShowDeadLockCommand));
-            commandsMap.Map(GameEvent.RotateCells, typeof(RotateCellsCommand));
+
+            commandsMap.Map(GameEvent.ResetField, typeof(ResetFieldCommand));
+            commandsMap.Map(GameEvent.MakeStep, typeof(MakeStepCommand));
         }
     }
 }

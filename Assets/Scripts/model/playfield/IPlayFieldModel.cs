@@ -4,8 +4,6 @@
     {
         void StartGame();
 
-        void MakeStep(int X, int Y);
-
-        bool AllowStep(int X, int Y);
+        void MakeStep(Cell stepCell);
     }
 }

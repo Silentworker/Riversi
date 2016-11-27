@@ -72,25 +72,33 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Demigiant\DOTween\DOTween.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\controller\headsup\HeadsUpController.cs" />
     <Compile Include="Assets\Scripts\consts\Distance.cs" />
-    <Compile Include="Assets\Scripts\controller\chips\ChipsFactory.cs" />
-    <Compile Include="Assets\Scripts\controller\chips\IChipFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\behaviour\lighttouch\LightTouch.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\MakeStepCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\ResetFieldCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\ResultGameCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\RotateCellsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\StartGameCommand.cs" />
     <Compile Include="Assets\Scripts\controller\config\CommandsConfig.cs" />
     <Compile Include="Assets\Scripts\controller\config\ICommandsConfig.cs" />
     <Compile Include="Assets\Scripts\controller\events\GameEvent.cs" />
-    <Compile Include="Assets\Scripts\controller\lightTouch\ILightTouchFactory.cs" />
-    <Compile Include="Assets\Scripts\controller\lightTouch\LightTouchFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\factory\FieldObjectFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\factory\IFieldObjectFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\factory\chips\ChipsFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\factory\chips\IChipFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\factory\lightTouch\ILightTouchFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\factory\lightTouch\LightTouchFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\headsup\IHeadsUpController.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationInit.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationInstaller.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationModel.cs" />
     <Compile Include="Assets\Scripts\model\playfield\Cell.cs" />
     <Compile Include="Assets\Scripts\model\playfield\CellState.cs" />
-    <Compile Include="Assets\Scripts\model\playfield\GameResult.cs" />
     <Compile Include="Assets\Scripts\model\playfield\IPlayFieldModel.cs" />
     <Compile Include="Assets\Scripts\model\playfield\PlayFieldModel.cs" />
     <Compile Include="Assets\Scripts\sw.core\command\Command.cs" />
@@ -316,6 +324,9 @@
     <Compile Include="Assets\Zenject\Source\Validation\ValidationMarker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Demigiant\DOTween\DOTween.XML" />
+    <None Include="Assets\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\Demigiant\DOTween\readme.txt" />
     <None Include="Assets\Zenject\LICENSE.txt" />
     <None Include="Assets\Zenject\Version.txt" />
   </ItemGroup>

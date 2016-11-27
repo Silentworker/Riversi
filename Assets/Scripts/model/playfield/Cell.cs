@@ -17,7 +17,7 @@ namespace Assets.Scripts.model.playfield
 
         public override string ToString()
         {
-            return "X = {0} Y = {1} State = {2}".Fmt(X, Y, State);
+            return "X: {0} Y: {1} St: {2}".Fmt(X, Y, State);
         }
     }
 }

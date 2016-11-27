@@ -1,5 +1,6 @@
 D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
 D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\DOTween.dll
 D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\UnityEditor.dll
 D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Common.dll
 D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
@@ -14,6 +15,7 @@ D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\UnityEngine.Analytics.xml
 D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\UnityEditor.xml
 D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
 D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\UnityEditor.iOS.Extensions.Common.xml
+D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\DOTween.xml
 D:\UnityProjects\Riversi\Temp\UnityVS_obj\Debug\Riversi.CSharp.csprojResolveAssemblyReference.cache
 D:\UnityProjects\Riversi\Temp\UnityVS_obj\Debug\Assembly-CSharp.dll
 D:\UnityProjects\Riversi\Temp\UnityVS_obj\Debug\Assembly-CSharp.pdb

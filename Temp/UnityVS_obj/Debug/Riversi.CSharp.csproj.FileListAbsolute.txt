@@ -19,3 +19,9 @@ D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\DOTween.xml
 D:\UnityProjects\Riversi\Temp\UnityVS_obj\Debug\Riversi.CSharp.csprojResolveAssemblyReference.cache
 D:\UnityProjects\Riversi\Temp\UnityVS_obj\Debug\Assembly-CSharp.dll
 D:\UnityProjects\Riversi\Temp\UnityVS_obj\Debug\Assembly-CSharp.pdb
+D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\DOTween43.dll
+D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\DOTween46.dll
+D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\DOTween50.dll
+D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\DOTween50.xml
+D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\DOTween43.xml
+D:\UnityProjects\Riversi\Temp\UnityVS_bin\Debug\DOTween46.xml

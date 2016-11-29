@@ -24,7 +24,7 @@ namespace Zenject
             }
             else
             {
-                // Empty sometimes when using convention based bindings
+                // empty sometimes when using convention based bindings
                 if (!BindInfo.ToTypes.IsEmpty())
                 {
                     RegisterProvidersForAllContractsPerConcreteType(

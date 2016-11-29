@@ -50,7 +50,7 @@ namespace Zenject
                 try
                 {
 #if PROFILING_ENABLED
-                    using (ProfileBlock.StartGame("{0}.Initialize()", renderable.Renderable.GetType().Name()))
+                    using (ProfileBlock.ResetGame("{0}.Initialize()", renderable.Renderable.GetType().Name()))
 #endif
                     {
                         renderable.Renderable.GuiRender();

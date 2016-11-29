@@ -10,7 +10,7 @@ namespace Assets.Scripts.controller.commands
             base.Execute();
             var result = (object[])data;
 
-            Debug.LogFormat("Game result. White: {0}  Black: {1}", result[0], result[1]);
+            Debug.LogFormat("Game result. white: {0}  black: {1}", result[0], result[1]);
         }
     }
 }

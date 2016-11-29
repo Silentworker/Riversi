@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.consts;
 using Assets.Scripts.controller.events;
 using Assets.Scripts.controller.headsup;
 using Assets.Scripts.sw.core.eventdispatcher;
 using Assets.Scripts.sw.core.model;
-using ModestTree;
 using UnityEngine;
 using Zenject;
 
@@ -14,10 +12,6 @@ namespace Assets.Scripts.model.playfield
 {
     public class PlayFieldModel : Model, IPlayFieldModel
     {
-
-        [Inject]
-        private IHeadsUpController headsUpController;
-
         private readonly int[][] Way =
         {
             /*   0° */ new[] {1, 0},
@@ -31,141 +25,84 @@ namespace Assets.Scripts.model.playfield
         };
 
         private Cell[,] _cells = new Cell[Distance.PlayFieldSize, Distance.PlayFieldSize];
-        private List<Cell> _allowStepCells = new List<Cell>();
+
+        [Inject]
+        private IHeadsUpController headsUpController;
 
         public PlayFieldModel(IEventDispatcher dispatcher, DiContainer container) : base(dispatcher, container)
         {
         }
 
-        private byte OppositeStep
+        private byte oppositeStep
         {
-            get { return CurrentStep == CellState.White ? CellState.Black : CellState.White; }
+            get { return currentStep == CellState.white ? CellState.black : CellState.white; }
         }
 
-        private byte CurrentStep { get; set; }
+        public byte currentStep { get; private set; }
 
-        private int ScoreBlack { get; set; }
+        public int scoreBlack { get; private set; }
 
-        private int ScoreWhite { get; set; }
+        public int scoreWhite { get; private set; }
 
-        public void StartGame()
+        public Cell[] allowedStepCells
         {
-            CurrentStep = CellState.Black;
+            get { return _cells.Cast<Cell>().Where(cell => cell.State == CellState.allow).ToArray(); }
+        }
+
+        public Cell[] notEmptyCells
+        {
+            get { return _cells.Cast<Cell>().Where(cell => cell.State != CellState.empty).ToArray(); }
+        }
+
+        public void ResetGame()
+        {
+            currentStep = CellState.black;
 
             for (var i = 0; i < Distance.PlayFieldSize; i++)
             {
                 for (var j = 0; j < Distance.PlayFieldSize; j++)
                 {
-                    _cells[i, j] = new Cell(i, j, CellState.Empty);
+                    _cells[i, j] = new Cell(i, j, CellState.empty);
                 }
             }
 
-            _cells[3, 3].State = CellState.White;
-            _cells[3, 4].State = CellState.Black;
-            _cells[4, 3].State = CellState.Black;
-            _cells[4, 4].State = CellState.White;
-
-            //_cells[2, 2].State = CellState.White;
-            //_cells[3, 3].State = CellState.White;
-            //_cells[4, 4].State = CellState.White;
-
-            //_cells[2, 3].State = CellState.Black;
-            //_cells[3, 4].State = CellState.Black;
-            //_cells[4, 3].State = CellState.Black;
+            _cells[3, 3].State = CellState.white;
+            _cells[3, 4].State = CellState.black;
+            _cells[4, 3].State = CellState.black;
+            _cells[4, 4].State = CellState.white;
 
             Analize();
-
-            //var ss = CheckChangableCells(_cells[1, 3]);
-
-
-            var updateCells = _cells.Cast<Cell>().Where(cell => cell.State != CellState.Empty).ToList();
-
-            eventDispatcher.DispatchEvent(GameEvent.ResetField, updateCells);
 
             Logging();
         }
 
-        public void MakeStep(Cell stepCell)
+        public void SwitchStepOnDeadLock()
         {
-            if (stepCell.State != CellState.AllowStep)
-                throw new Exception("Trying to make a step on not allowed cell");
+            currentStep = oppositeStep;
+            Analize();
+        }
 
-            var changingCells = CheckChangableCells(stepCell);
-
+        public List<Cell> CalculateChangingCells(Cell stepCell)
+        {
+            var changingCells = ChangingCells(stepCell);
             foreach (var cell in changingCells)
             {
-                if (cell.State == CellState.White) cell.State = CellState.Black;
-                else if (cell.State == CellState.Black) cell.State = CellState.White;
+                if (cell.State == CellState.white) cell.State = CellState.black;
+                else if (cell.State == CellState.black) cell.State = CellState.white;
             }
-            Debug.LogFormat("Change cells {0}: {1}", changingCells.Count, string.Join("#", changingCells.Select(x => x.ToString()).ToArray()));
 
-            stepCell.State = CurrentStep;
-            CurrentStep = OppositeStep;
+            stepCell.State = currentStep;
+
+            currentStep = oppositeStep;
+
             Analize();
 
-            _allowStepCells.Clear();
-            _allowStepCells.AddRange(_cells.Cast<Cell>().Where(cell => cell.State == CellState.AllowStep));
-
-            eventDispatcher.DispatchEvent(GameEvent.MakeStep, new object[] { changingCells, _allowStepCells, stepCell });
-
             Logging();
+
+            return changingCells;
         }
 
-        private void ShowStats()
-        {
-            headsUpController.SetTurn("Turn: " + (CurrentStep == CellState.White ? "White" : "Black"));
-            headsUpController.SetScore("W: {0}  B: {1}".Fmt(ScoreWhite, ScoreBlack));
-        }
-
-        public bool AllowStep(int X, int Y)
-        {
-            return _cells[X, Y].State == CellState.AllowStep;
-        }
-
-        private void Analize()
-        {
-            #region Check allow 
-            foreach (var cell in _cells)
-            {
-                if (cell.State == CellState.AllowStep) cell.State = CellState.Empty;
-            }
-
-            foreach (var cell in _cells)
-            {
-                if (cell.State == CellState.Empty && CheckChangableCells(cell).Count > 0) cell.State = CellState.AllowStep;
-            }
-            #endregion
-
-            #region Get score
-            ScoreWhite = 0;
-            ScoreBlack = 0;
-            foreach (var cell in _cells)
-            {
-                if (cell.State == CellState.White) ScoreWhite++;
-                else if (cell.State == CellState.Black) ScoreBlack++;
-            }
-            #endregion
-
-            #region Check win
-            if (ScoreWhite + ScoreBlack >= Distance.PlayFieldSize * Distance.PlayFieldSize)
-            {
-                eventDispatcher.DispatchEvent(GameEvent.GameComplete, new object[] { ScoreWhite, ScoreBlack });
-            }
-            #endregion
-
-            #region Check deadlock
-            if (_cells.Cast<Cell>().All(cell => cell.State != CellState.AllowStep)) //todo check this expression
-            {
-                eventDispatcher.DispatchEvent(GameEvent.Deadlock);
-                CurrentStep = OppositeStep;
-                Analize();
-            }
-            #endregion
-
-            ShowStats();
-        }
-
-        private List<Cell> CheckChangableCells(Cell cell)
+        public List<Cell> ChangingCells(Cell cell)
         {
             var result = new List<Cell>();
 
@@ -182,11 +119,12 @@ namespace Assets.Scripts.model.playfield
                     var spotX = cell.X + deltaX * i;
                     var spotY = cell.Y + deltaY * i;
 
-                    if ((spotX >= Distance.PlayFieldSize) || (spotY >= Distance.PlayFieldSize) || (spotX < 0) || (spotY < 0)) break; // out of field
+                    if ((spotX >= Distance.PlayFieldSize) || (spotY >= Distance.PlayFieldSize) || (spotX < 0) ||
+                        (spotY < 0)) break; // out of field
 
                     var currentCell = _cells[spotX, spotY];
 
-                    if (currentCell.State == CurrentStep)// same reached
+                    if (currentCell.State == currentStep) // same reached
                     {
                         foreach (var changingCell in changingLine)
                         {
@@ -195,16 +133,58 @@ namespace Assets.Scripts.model.playfield
                         break;
                     }
 
-                    if ((currentCell.State == CellState.Empty) || (currentCell.State == CellState.AllowStep)) break; // empty cell reached
+                    if ((currentCell.State == CellState.empty) || (currentCell.State == CellState.allow))
+                        break; // empty cell reached
 
-                    if (currentCell.State == OppositeStep) changingLine.Add(currentCell);
+                    if (currentCell.State == oppositeStep) changingLine.Add(currentCell);
                 }
             }
 
-            if (result.Count > 0)
-                Debug.LogFormat("Alow {0}: {1}", result.Count, string.Join("##", result.Select(x => x.ToString()).ToArray()));
-
             return result;
+        }
+
+        public bool AllowStep(int X, int Y)
+        {
+            return _cells[X, Y].State == CellState.allow;
+        }
+
+        private void Analize()
+        {
+            #region Check allow 
+            foreach (var cell in _cells)
+            {
+                if (cell.State == CellState.allow) cell.State = CellState.empty;
+            }
+
+            foreach (var cell in _cells)
+            {
+                if (cell.State == CellState.empty && ChangingCells(cell).Count > 0) cell.State = CellState.allow;
+            }
+            #endregion
+
+            #region Get score
+            scoreWhite = 0;
+            scoreBlack = 0;
+            foreach (var cell in _cells)
+            {
+                if (cell.State == CellState.white) scoreWhite++;
+                else if (cell.State == CellState.black) scoreBlack++;
+            }
+            #endregion
+
+            #region Check win
+            if (scoreWhite + scoreBlack >= Distance.PlayFieldSize * Distance.PlayFieldSize)
+            {
+                eventDispatcher.DispatchEvent(GameEvent.GameComplete);
+            }
+            #endregion
+
+            #region Check deadlock
+            if (_cells.Cast<Cell>().All(cell => cell.State != CellState.allow))
+            {
+                eventDispatcher.DispatchEvent(GameEvent.Deadlock);
+            }
+            #endregion
         }
 
         private void Logging()

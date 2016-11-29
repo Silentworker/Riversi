@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using Assets.Scripts.controller.behaviour.lighttouch;
 using Assets.Scripts.controller.factory.chips;
 using Assets.Scripts.controller.factory.lightTouch;
 using Assets.Scripts.model.playfield;
+using UnityEngine;
 using Zenject;
 using Command = Assets.Scripts.sw.core.command.Command;
 
@@ -12,27 +13,33 @@ namespace Assets.Scripts.controller.commands
     {
         [Inject]
         private IChipFactory chipFactory;
-
         [Inject]
         private ILightTouchFactory lightTouchFactory;
+        [Inject]
+        private IPlayFieldModel playFieldModel;
 
         public override void Execute(object data = null)
         {
             base.Execute();
 
-            var cells = (List<Cell>)data;
+            playFieldModel.ResetGame();
+
+            var cells = playFieldModel.notEmptyCells;
 
             chipFactory.Clear();
 
-            foreach (var cell in cells.Where(cell => cell.State != CellState.Empty))
+            var lightColor = playFieldModel.currentStep == CellState.white ? Color.green : Color.red;
+
+            foreach (var cell in cells)
             {
-                if (cell.State != CellState.AllowStep)
+                if (cell.State == CellState.allow)
                 {
-                    chipFactory.Spawn(cell);
+                    var lightTouch = lightTouchFactory.Spawn(cell);
+                    lightTouch.GetComponent<LightTouch>().SetColor(lightColor);
                 }
                 else
                 {
-                    lightTouchFactory.Spawn(cell);
+                    chipFactory.Spawn(cell);
                 }
             }
         }

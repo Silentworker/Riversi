@@ -196,7 +196,7 @@ namespace Zenject
             subContext.Identifier = identifier;
             subContext.MemberType = memberType;
 
-            // StartGame these
+            // ResetGame these
             subContext.ConcreteIdentifier = null;
             subContext.MemberName = "";
             subContext.FallBackValue = null;

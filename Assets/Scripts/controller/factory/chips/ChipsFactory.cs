@@ -16,8 +16,8 @@ namespace Assets.Scripts.controller.factory.chips
 
         public override GameObject Spawn(Cell cell)
         {
-            Prefab = cell.State == CellState.White ? WhiteChipPrefab
-                : cell.State == CellState.Black ? BlackChipPrefab : null;
+            Prefab = cell.State == CellState.white ? WhiteChipPrefab
+                : cell.State == CellState.black ? BlackChipPrefab : null;
             if (Prefab == null) throw new Exception("Spawning wrong state cell. {0}".Fmt(cell));
 
             return base.Spawn(cell);

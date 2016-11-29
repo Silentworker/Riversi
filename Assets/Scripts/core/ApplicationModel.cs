@@ -19,17 +19,7 @@ namespace Assets.Scripts.core
 
         public void Init()
         {
-            DOVirtual.DelayedCall(0.1f, () => { eventDispatcher.DispatchEvent(GameEvent.StartGame); });
-        }
-
-        public void StartGame()
-        {
-            _playFieldModel.StartGame();
-        }
-
-        public void MakeStep(Cell cell)
-        {
-            _playFieldModel.MakeStep(cell);
+            DOVirtual.DelayedCall(1f, () => { eventDispatcher.DispatchEvent(GameEvent.StartGame); });
         }
     }
 }

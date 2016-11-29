@@ -1,9 +1,23 @@
-﻿namespace Assets.Scripts.model.playfield
+﻿using System.Collections.Generic;
+
+namespace Assets.Scripts.model.playfield
 {
     public interface IPlayFieldModel
     {
-        void StartGame();
+        Cell[] allowedStepCells { get; }
 
-        void MakeStep(Cell stepCell);
+        Cell[] notEmptyCells { get; }
+
+        int scoreWhite { get; }
+
+        int scoreBlack { get; }
+
+        byte currentStep { get; }
+
+        void ResetGame();
+
+        void SwitchStepOnDeadLock();
+
+        List<Cell> CalculateChangingCells(Cell cell);
     }
 }

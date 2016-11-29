@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.controller.commands;
+using Assets.Scripts.controller.commands.step;
 using Assets.Scripts.controller.events;
 using Assets.Scripts.sw.core.command.map;
 using Zenject;
@@ -16,7 +17,6 @@ namespace Assets.Scripts.controller.config
             commandsMap.Map(GameEvent.GameComplete, typeof(ResultGameCommand));
             //commandsMap.Map(GameEvent.Deadlock, typeof(ShowDeadLockCommand));
 
-            commandsMap.Map(GameEvent.ResetField, typeof(ResetFieldCommand));
             commandsMap.Map(GameEvent.MakeStep, typeof(MakeStepCommand));
         }
     }

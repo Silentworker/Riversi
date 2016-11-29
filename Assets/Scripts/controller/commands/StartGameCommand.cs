@@ -1,18 +1,13 @@
-﻿using Assets.Scripts.core;
-using Zenject;
-using Command = Assets.Scripts.sw.core.command.Command;
+﻿using Assets.Scripts.sw.core.command.macro;
 
 namespace Assets.Scripts.controller.commands
 {
-    public class StartGameCommand : Command
+    public class StartGameCommand : SequenceMacro
     {
-        [Inject]
-        private ApplicationModel applicationModel;
-
-        public override void Execute(object data = null)
+        public override void Prepare()
         {
-            base.Execute();
-            applicationModel.StartGame();
+            Add(typeof(ResetFieldCommand));
+            Add(typeof(ShowStatsCommand));
         }
     }
 }

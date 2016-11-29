@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <doc>
     <assembly>
         <name>DOTween</name>
@@ -803,7 +803,7 @@
         </member>
         <member name="T:DG.Tweening.EaseFactory">
             <summary>
-            Allows to wrap ease method in special ways, adding extra features
+            allows to wrap ease method in special ways, adding extra features
             </summary>
         </member>
         <member name="M:DG.Tweening.EaseFactory.StopMotion(System.Int32,System.Nullable{DG.Tweening.Ease})">
@@ -2085,7 +2085,7 @@
             <para>If applied to Sequences eases the whole sequence animation</para></summary>
         </member>
         <member name="M:DG.Tweening.TweenSettingsExtensions.SetRecyclable``1(``0)">
-            <summary>Allows the tween to be recycled after being killed.</summary>
+            <summary>allows the tween to be recycled after being killed.</summary>
         </member>
         <member name="M:DG.Tweening.TweenSettingsExtensions.SetRecyclable``1(``0,System.Boolean)">
             <summary>Sets the recycling behaviour for the tween.</summary>

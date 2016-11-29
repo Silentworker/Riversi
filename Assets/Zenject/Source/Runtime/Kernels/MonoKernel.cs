@@ -20,7 +20,7 @@ namespace Zenject
 
         public virtual void Start()
         {
-            Log.Debug("DependencyRoot ({0}): StartGame called, Initializing IInitializable's", this.GetType().Name());
+            Log.Debug("DependencyRoot ({0}): ResetGame called, Initializing IInitializable's", this.GetType().Name());
             _initializableManager.Initialize();
         }
 
@@ -53,7 +53,7 @@ namespace Zenject
 
         public virtual void OnApplicationQuit()
         {
-            // _disposablesManager can be null if we get destroyed before the StartGame event
+            // _disposablesManager can be null if we get destroyed before the ResetGame event
             if (_disposablesManager != null)
             {
                 Log.Debug("MonoDependencyRoot ({0}): OnApplicationQuit called, disposing IDisposable's", this.GetType().Name());
@@ -74,7 +74,7 @@ namespace Zenject
 
         public virtual void OnDestroy()
         {
-            // _disposablesManager can be null if we get destroyed before the StartGame event
+            // _disposablesManager can be null if we get destroyed before the ResetGame event
             if (_disposablesManager != null)
             {
                 // See comment in OnApplicationQuit

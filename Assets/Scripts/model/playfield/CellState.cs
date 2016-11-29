@@ -2,9 +2,9 @@
 {
     public struct CellState
     {
-        public static readonly byte White = 1;
-        public static readonly byte Black = 2;
-        public static readonly byte Empty = 0;
-        public static readonly byte AllowStep = 4;
+        public static readonly byte white = 1;
+        public static readonly byte black = 2;
+        public static readonly byte empty = 0;
+        public static readonly byte allow = 4; // allow step
     }
 }

@@ -30,10 +30,7 @@ namespace Assets.Scripts.sw.core.command.macro
             Inter(true);
         }
 
-        public virtual void Prepare()
-        {
-
-        }
+        public virtual void Prepare() { }
 
         public ISubCommandMapper Add(Type commandType)
         {

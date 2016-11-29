@@ -594,7 +594,7 @@ namespace Zenject
             {
                 var lookupId = new LookupId(provider, context.GetBindingId());
 
-                // Allow one before giving up so that you can do circular dependencies via postinject or fields
+                // allow one before giving up so that you can do circular dependencies via postinject or fields
                 Assert.That(_resolvesInProgress.Where(x => x.Equals(lookupId)).Count() <= 1,
                     "Circular dependency detected! \nObject graph:\n {0}", context.GetObjectGraphString());
 
@@ -671,7 +671,7 @@ namespace Zenject
         public object InstantiateExplicit(Type concreteType, bool autoInject, InjectArgs args)
         {
 #if PROFILING_ENABLED
-            using (ProfileBlock.StartGame("Zenject.Instantiate({0})", concreteType))
+            using (ProfileBlock.ResetGame("Zenject.Instantiate({0})", concreteType))
 #endif
             {
                 return InstantiateInternal(concreteType, autoInject, args);
@@ -763,7 +763,7 @@ namespace Zenject
                     try
                     {
 #if PROFILING_ENABLED
-                        using (ProfileBlock.StartGame("{0}.{0}()", concreteType))
+                        using (ProfileBlock.ResetGame("{0}.{0}()", concreteType))
 #endif
                         {
                             newObj = typeInfo.InjectConstructor.Invoke(paramValues.ToArray());
@@ -895,7 +895,7 @@ namespace Zenject
             foreach (var method in typeInfo.PostInjectMethods)
             {
 #if PROFILING_ENABLED
-                using (ProfileBlock.StartGame("{0}.{1}()", injectableType, method.MethodInfo.Name))
+                using (ProfileBlock.ResetGame("{0}.{1}()", injectableType, method.MethodInfo.Name))
 #endif
                 {
                     var paramValues = new List<object>();

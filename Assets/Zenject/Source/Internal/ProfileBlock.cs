@@ -12,17 +12,17 @@ namespace ModestTree.Util.Debugging
             Profiler.BeginSample(sampleName);
         }
 
-        public static ProfileBlock ResetGame(string sampleName)
+        public static ProfileBlock Init(string sampleName)
         {
             return new ProfileBlock(sampleName);
         }
 
-        public static ProfileBlock ResetGame(string sampleNameFormat, object obj)
+        public static ProfileBlock Init(string sampleNameFormat, object obj)
         {
             return new ProfileBlock(string.Format(sampleNameFormat, obj));
         }
 
-        public static ProfileBlock ResetGame(string sampleNameFormat, object obj1, object obj2)
+        public static ProfileBlock Init(string sampleNameFormat, object obj1, object obj2)
         {
             return new ProfileBlock(string.Format(sampleNameFormat, obj1, obj2));
         }

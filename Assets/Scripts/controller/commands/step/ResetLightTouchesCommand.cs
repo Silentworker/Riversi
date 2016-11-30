@@ -23,7 +23,7 @@ namespace Assets.Scripts.controller.commands.step
 
             lightTouchFactory.Clear();
 
-            var lightColor = playFieldModel.currentStep == CellState.white ? Color.green : Color.red;
+            var lightColor = playFieldModel.currentTurn == CellState.white ? Color.green : Color.red;
 
             foreach (var allowStepCell in allowStepCells)
             {

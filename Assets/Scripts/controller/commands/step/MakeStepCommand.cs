@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.controller.events;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.command.macro;
+using Assets.Scripts.sw.core.command.map;
 using Zenject;
+using ICommand = Assets.Scripts.sw.core.command.ICommand;
 
 namespace Assets.Scripts.controller.commands.step
 {
@@ -14,9 +17,12 @@ namespace Assets.Scripts.controller.commands.step
 
         [Inject]
         private IPlayFieldModel playFieldModel;
+        [Inject]
+        private ICommandsMap commandsMap;
 
         public override void Prepare()
         {
+            Add(typeof(SaveGameStateCommand));
             Add(typeof(SpawnChipCommand)).WithData(_stepCell);
             Add(typeof(ChangeCellsCommand)).WithData(_changingCells);
             Add(typeof(ResetLightTouchesCommand)).WithData(_allowStepCells);

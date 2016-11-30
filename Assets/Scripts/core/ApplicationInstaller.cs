@@ -2,10 +2,12 @@
 using Assets.Scripts.controller.factory.chips;
 using Assets.Scripts.controller.factory.lightTouch;
 using Assets.Scripts.controller.headsup;
+using Assets.Scripts.controller.settings;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.command.macro.mapper;
 using Assets.Scripts.sw.core.command.map;
 using Assets.Scripts.sw.core.eventdispatcher;
+using Assets.Scripts.sw.core.settings;
 using Zenject;
 
 namespace Assets.Scripts.core
@@ -28,6 +30,7 @@ namespace Assets.Scripts.core
             #region Common
             Container.Bind<ApplicationModel>().To<ApplicationModel>().AsSingle();
             Container.Bind<IPlayFieldModel>().To<PlayFieldModel>().AsSingle();
+            Container.Bind<ISettingsManager>().To<SettingsManager>().AsSingle();
             #endregion
 
             #region MonoBehaviour instances

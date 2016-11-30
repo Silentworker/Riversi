@@ -12,11 +12,13 @@ namespace Assets.Scripts.model.playfield
 
         int scoreBlack { get; }
 
-        byte currentStep { get; }
+        byte currentTurn { get; }
 
-        void ResetGame();
+        void Init(Cell[,] cells = null, byte currentTurn = 0);
 
         void SwitchStepOnDeadLock();
+
+        void SaveCurrentState();
 
         List<Cell> CalculateChangingCells(Cell cell);
     }

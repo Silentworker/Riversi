@@ -47,7 +47,7 @@ namespace Zenject
                 try
                 {
 #if PROFILING_ENABLED
-                    using (ProfileBlock.ResetGame("{0}.Initialize()", initializable.Initializable.GetType().Name()))
+                    using (ProfileBlock.Init("{0}.Initialize()", initializable.Initializable.GetType().Name()))
 #endif
                     {
                         initializable.Initializable.Initialize();

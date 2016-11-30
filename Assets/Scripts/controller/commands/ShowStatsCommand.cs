@@ -18,8 +18,8 @@ namespace Assets.Scripts.controller.commands
         {
             base.Execute();
 
-            headsUpController.SetTurn("Turn: " + (playFieldModel.currentStep == CellState.white ? "White" : "Black"));
-            headsUpController.SetScore("W: {0}  B: {1}".Fmt(playFieldModel.scoreWhite, playFieldModel.scoreBlack));
+            headsUpController.SetTurn(playFieldModel.currentTurn);
+            headsUpController.SetScore(playFieldModel.scoreWhite, playFieldModel.scoreBlack);
         }
     }
 }

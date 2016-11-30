@@ -3,8 +3,10 @@ using System.Linq;
 using Assets.Scripts.consts;
 using Assets.Scripts.controller.events;
 using Assets.Scripts.controller.headsup;
+using Assets.Scripts.controller.settings;
 using Assets.Scripts.sw.core.eventdispatcher;
 using Assets.Scripts.sw.core.model;
+using Assets.Scripts.sw.core.settings;
 using UnityEngine;
 using Zenject;
 
@@ -28,6 +30,8 @@ namespace Assets.Scripts.model.playfield
 
         [Inject]
         private IHeadsUpController headsUpController;
+        [Inject]
+        private ISettingsManager settingsManager;
 
         public PlayFieldModel(IEventDispatcher dispatcher, DiContainer container) : base(dispatcher, container)
         {
@@ -35,10 +39,10 @@ namespace Assets.Scripts.model.playfield
 
         private byte oppositeStep
         {
-            get { return currentStep == CellState.white ? CellState.black : CellState.white; }
+            get { return currentTurn == CellState.white ? CellState.black : CellState.white; }
         }
 
-        public byte currentStep { get; private set; }
+        public byte currentTurn { get; private set; }
 
         public int scoreBlack { get; private set; }
 
@@ -54,22 +58,34 @@ namespace Assets.Scripts.model.playfield
             get { return _cells.Cast<Cell>().Where(cell => cell.State != CellState.empty).ToArray(); }
         }
 
-        public void ResetGame()
+        public void Init(Cell[,] cells = null, byte turn = (byte)0)
         {
-            currentStep = CellState.black;
-
-            for (var i = 0; i < Distance.PlayFieldSize; i++)
+            if (cells != null)
             {
-                for (var j = 0; j < Distance.PlayFieldSize; j++)
-                {
-                    _cells[i, j] = new Cell(i, j, CellState.empty);
-                }
+                _cells = cells;
+                currentTurn = turn;
             }
+            else
+            {
+                #region Default playfield
 
-            _cells[3, 3].State = CellState.white;
-            _cells[3, 4].State = CellState.black;
-            _cells[4, 3].State = CellState.black;
-            _cells[4, 4].State = CellState.white;
+                currentTurn = CellState.black;
+
+                for (var i = 0; i < Distance.PlayFieldSize; i++)
+                {
+                    for (var j = 0; j < Distance.PlayFieldSize; j++)
+                    {
+                        _cells[i, j] = new Cell(i, j, CellState.empty);
+                    }
+                }
+
+                _cells[3, 3].State = CellState.white;
+                _cells[3, 4].State = CellState.black;
+                _cells[4, 3].State = CellState.black;
+                _cells[4, 4].State = CellState.white;
+
+                #endregion
+            }
 
             Analize();
 
@@ -78,8 +94,14 @@ namespace Assets.Scripts.model.playfield
 
         public void SwitchStepOnDeadLock()
         {
-            currentStep = oppositeStep;
+            currentTurn = oppositeStep;
             Analize();
+        }
+
+        public void SaveCurrentState()
+        {
+            settingsManager.SetSetting(SettingName.Cells, _cells);
+            settingsManager.SetSetting(SettingName.Turn, currentTurn);
         }
 
         public List<Cell> CalculateChangingCells(Cell stepCell)
@@ -91,9 +113,9 @@ namespace Assets.Scripts.model.playfield
                 else if (cell.State == CellState.black) cell.State = CellState.white;
             }
 
-            stepCell.State = currentStep;
+            stepCell.State = currentTurn;
 
-            currentStep = oppositeStep;
+            currentTurn = oppositeStep;
 
             Analize();
 
@@ -124,7 +146,7 @@ namespace Assets.Scripts.model.playfield
 
                     var currentCell = _cells[spotX, spotY];
 
-                    if (currentCell.State == currentStep) // same reached
+                    if (currentCell.State == currentTurn) // same reached
                     {
                         foreach (var changingCell in changingLine)
                         {
@@ -151,6 +173,7 @@ namespace Assets.Scripts.model.playfield
         private void Analize()
         {
             #region Check allow 
+
             foreach (var cell in _cells)
             {
                 if (cell.State == CellState.allow) cell.State = CellState.empty;
@@ -160,9 +183,11 @@ namespace Assets.Scripts.model.playfield
             {
                 if (cell.State == CellState.empty && ChangingCells(cell).Count > 0) cell.State = CellState.allow;
             }
+
             #endregion
 
             #region Get score
+
             scoreWhite = 0;
             scoreBlack = 0;
             foreach (var cell in _cells)
@@ -170,20 +195,25 @@ namespace Assets.Scripts.model.playfield
                 if (cell.State == CellState.white) scoreWhite++;
                 else if (cell.State == CellState.black) scoreBlack++;
             }
+
             #endregion
 
             #region Check win
+
             if (scoreWhite + scoreBlack >= Distance.PlayFieldSize * Distance.PlayFieldSize)
             {
-                eventDispatcher.DispatchEvent(GameEvent.GameComplete);
+                eventDispatcher.DispatchEvent(GameEvent.FinishGame);
             }
+
             #endregion
 
             #region Check deadlock
+
             if (_cells.Cast<Cell>().All(cell => cell.State != CellState.allow))
             {
                 eventDispatcher.DispatchEvent(GameEvent.Deadlock);
             }
+
             #endregion
         }
 
@@ -193,7 +223,8 @@ namespace Assets.Scripts.model.playfield
             for (var i = 0; i < Distance.PlayFieldSize; i++)
             {
                 Debug.LogFormat("{0}      {1}      {2}      {3}      {4}      {5}      {6}      {7}",
-                c[0, i].State, c[1, i].State, c[2, i].State, c[3, i].State, c[4, i].State, c[5, i].State, c[6, i].State, c[7, i].State);
+                    c[0, i].State, c[1, i].State, c[2, i].State, c[3, i].State,
+                    c[4, i].State, c[5, i].State, c[6, i].State, c[7, i].State);
             }
         }
     }

@@ -1,7 +1,9 @@
-﻿using ModestTree;
+﻿using System;
+using ModestTree;
 
 namespace Assets.Scripts.model.playfield
 {
+    [Serializable]
     public class Cell
     {
         public Cell(int x, int y, byte state)

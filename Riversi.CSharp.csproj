@@ -88,13 +88,14 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\consts\Distance.cs" />
     <Compile Include="Assets\Scripts\controller\behaviour\lighttouch\LightTouch.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\ResetFieldCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\ResultGameCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\InitPlayFieldCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\FinishtGameCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\ShowStatsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\StartGameCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\ChangeCellsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\DeadLockCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\MakeStepCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\SaveGameStateCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\SpawnChipCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\ResetLightTouchesCommand.cs" />
     <Compile Include="Assets\Scripts\controller\config\CommandsConfig.cs" />
@@ -108,6 +109,8 @@
     <Compile Include="Assets\Scripts\controller\factory\lightTouch\LightTouchFactory.cs" />
     <Compile Include="Assets\Scripts\controller\headsup\HeadsUpController.cs" />
     <Compile Include="Assets\Scripts\controller\headsup\IHeadsUpController.cs" />
+    <Compile Include="Assets\Scripts\controller\settings\SettingName.cs" />
+    <Compile Include="Assets\Scripts\controller\settings\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationInit.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationInstaller.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationModel.cs" />

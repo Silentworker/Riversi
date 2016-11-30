@@ -671,7 +671,7 @@ namespace Zenject
         public object InstantiateExplicit(Type concreteType, bool autoInject, InjectArgs args)
         {
 #if PROFILING_ENABLED
-            using (ProfileBlock.ResetGame("Zenject.Instantiate({0})", concreteType))
+            using (ProfileBlock.Init("Zenject.Instantiate({0})", concreteType))
 #endif
             {
                 return InstantiateInternal(concreteType, autoInject, args);
@@ -763,7 +763,7 @@ namespace Zenject
                     try
                     {
 #if PROFILING_ENABLED
-                        using (ProfileBlock.ResetGame("{0}.{0}()", concreteType))
+                        using (ProfileBlock.Init("{0}.{0}()", concreteType))
 #endif
                         {
                             newObj = typeInfo.InjectConstructor.Invoke(paramValues.ToArray());
@@ -895,7 +895,7 @@ namespace Zenject
             foreach (var method in typeInfo.PostInjectMethods)
             {
 #if PROFILING_ENABLED
-                using (ProfileBlock.ResetGame("{0}.{1}()", injectableType, method.MethodInfo.Name))
+                using (ProfileBlock.Init("{0}.{1}()", injectableType, method.MethodInfo.Name))
 #endif
                 {
                     var paramValues = new List<object>();

@@ -152,7 +152,7 @@ namespace Zenject
         protected override void UpdateItem(ITickable task)
         {
 #if PROFILING_ENABLED
-            using (ProfileBlock.ResetGame("{0}.Tick()".Fmt(task.GetType().Name())))
+            using (ProfileBlock.Init("{0}.Tick()".Fmt(task.GetType().Name())))
 #endif
             {
                 task.Tick();
@@ -165,7 +165,7 @@ namespace Zenject
         protected override void UpdateItem(ILateTickable task)
         {
 #if PROFILING_ENABLED
-            using (ProfileBlock.ResetGame("{0}.LateTick()".Fmt(task.GetType().Name())))
+            using (ProfileBlock.Init("{0}.LateTick()".Fmt(task.GetType().Name())))
 #endif
             {
                 task.LateTick();
@@ -178,7 +178,7 @@ namespace Zenject
         protected override void UpdateItem(IFixedTickable task)
         {
 #if PROFILING_ENABLED
-            using (ProfileBlock.ResetGame("{0}.FixedTick()".Fmt(task.GetType().Name())))
+            using (ProfileBlock.Init("{0}.FixedTick()".Fmt(task.GetType().Name())))
 #endif
             {
                 task.FixedTick();

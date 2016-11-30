@@ -23,10 +23,7 @@ namespace Assets.Scripts.sw.core.settings
             SyncronizeWithPlayerPrefs();
         }
 
-        public virtual void Prepare()
-        {
-            // for override
-        }
+        protected virtual void Prepare() { }
 
         private void SyncronizeWithPlayerPrefs()
         {
@@ -89,6 +86,8 @@ namespace Assets.Scripts.sw.core.settings
             }
             else
             {
+                if (item.CurrentValue == null) return;
+
                 using (var stream = new MemoryStream())
                 {
                     _formatter.Serialize(stream, item.CurrentValue);

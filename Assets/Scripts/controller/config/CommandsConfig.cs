@@ -14,7 +14,7 @@ namespace Assets.Scripts.controller.config
         public void Init()
         {
             commandsMap.Map(GameEvent.StartGame, typeof(StartGameCommand));
-            commandsMap.Map(GameEvent.GameComplete, typeof(ResultGameCommand));
+            commandsMap.Map(GameEvent.FinishGame, typeof(FinishtGameCommand));
             //commandsMap.Map(GameEvent.Deadlock, typeof(ShowDeadLockCommand));
 
             commandsMap.Map(GameEvent.MakeStep, typeof(MakeStepCommand));

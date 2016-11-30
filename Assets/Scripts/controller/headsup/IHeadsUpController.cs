@@ -2,8 +2,8 @@
 {
     public interface IHeadsUpController
     {
-        void SetTurn(string text);
+        void SetTurn(byte turn);
 
-        void SetScore(string text);
+        void SetScore(int scoreWhite, int scoreBlack);
     }
 }

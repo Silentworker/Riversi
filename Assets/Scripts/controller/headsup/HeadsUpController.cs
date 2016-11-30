@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.model.playfield;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.controller.headsup
@@ -6,16 +7,20 @@ namespace Assets.Scripts.controller.headsup
     public class HeadsUpController : MonoBehaviour, IHeadsUpController
     {
         public Text TurnText;
-        public Text ScoreText;
+        public Text ScoreWhite;
+        public Text ScoreBlack;
+        public Color DarkSide;
+        public Color LightSide;
 
-        public void SetTurn(string text)
+        public void SetTurn(byte turn)
         {
-            TurnText.text = text;
+            TurnText.color = turn == CellState.white ? LightSide : DarkSide;
         }
 
-        public void SetScore(string text)
+        public void SetScore(int scoreWhite, int scoreBlack)
         {
-            ScoreText.text = text;
+            ScoreWhite.text = scoreWhite.ToString();
+            ScoreBlack.text = scoreBlack.ToString();
         }
     }
 }

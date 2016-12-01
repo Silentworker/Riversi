@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.controller.events;
+﻿using System.Collections.Generic;
+using Assets.Scripts.consts;
+using Assets.Scripts.controller.events;
 using Assets.Scripts.controller.settings;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.eventdispatcher;
@@ -22,9 +24,21 @@ namespace Assets.Scripts.core
 
         public void Init()
         {
-            DOVirtual.DelayedCall(0.1f, () =>
+            DOVirtual.DelayedCall(0.5f, () =>
             {
-                var cells = (Cell[,])settingsManager.GetSetting(SettingName.Cells);
+                var loadCells = (List<Cell>)settingsManager.GetSetting(SettingName.Cells);
+
+                Cell[,] cells = null;
+
+                if (loadCells != null)
+                {
+                    cells = new Cell[Distance.PlayFieldSize, Distance.PlayFieldSize];
+                    foreach (var loadCell in loadCells)
+                    {
+                        cells[loadCell.X, loadCell.Y] = loadCell;
+                    }
+                }
+
                 var turn = (byte)settingsManager.GetSetting(SettingName.Turn);
 
                 eventDispatcher.DispatchEvent(GameEvent.StartGame, new object[] { cells, turn });

@@ -21,6 +21,8 @@ namespace Assets.Scripts.sw.core.settings
             Prepare();
 
             SyncronizeWithPlayerPrefs();
+
+            //ClearSettings();
         }
 
         protected virtual void Prepare() { }

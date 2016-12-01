@@ -37,7 +37,7 @@ namespace Assets.Scripts.model.playfield
         {
         }
 
-        private byte oppositeStep
+        private byte oppositeTurn
         {
             get { return currentTurn == CellState.white ? CellState.black : CellState.white; }
         }
@@ -94,13 +94,13 @@ namespace Assets.Scripts.model.playfield
 
         public void SwitchStepOnDeadLock()
         {
-            currentTurn = oppositeStep;
+            currentTurn = oppositeTurn;
             Analize();
         }
 
         public void SaveCurrentState()
         {
-            settingsManager.SetSetting(SettingName.Cells, _cells);
+            settingsManager.SetSetting(SettingName.Cells, _cells.Cast<Cell>().ToList());
             settingsManager.SetSetting(SettingName.Turn, currentTurn);
         }
 
@@ -115,7 +115,7 @@ namespace Assets.Scripts.model.playfield
 
             stepCell.State = currentTurn;
 
-            currentTurn = oppositeStep;
+            currentTurn = oppositeTurn;
 
             Analize();
 
@@ -158,7 +158,7 @@ namespace Assets.Scripts.model.playfield
                     if ((currentCell.State == CellState.empty) || (currentCell.State == CellState.allow))
                         break; // empty cell reached
 
-                    if (currentCell.State == oppositeStep) changingLine.Add(currentCell);
+                    if (currentCell.State == oppositeTurn) changingLine.Add(currentCell);
                 }
             }
 

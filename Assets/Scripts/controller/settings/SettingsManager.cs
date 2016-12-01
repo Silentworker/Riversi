@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.model.playfield;
+﻿using System.Collections.Generic;
+using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.settings;
 
 namespace Assets.Scripts.controller.settings
@@ -8,7 +9,7 @@ namespace Assets.Scripts.controller.settings
         protected override void Prepare()
         {
             InitSetting(SettingName.Turn, typeof (byte), CellState.black);
-            InitSetting(SettingName.Cells, typeof (Cell[,]), null);
+            InitSetting(SettingName.Cells, typeof (List<Cell>), null);
             InitSetting(SettingName.SoundVolume, typeof (int), 10);
             InitSetting(SettingName.MusicVolume, typeof (int), 10);
         }

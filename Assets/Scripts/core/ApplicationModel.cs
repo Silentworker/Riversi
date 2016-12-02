@@ -24,7 +24,7 @@ namespace Assets.Scripts.core
 
         public void Init()
         {
-            DOVirtual.DelayedCall(0.5f, () =>
+            DOVirtual.DelayedCall(0.1f, () =>
             {
                 var loadCells = (List<Cell>)settingsManager.GetSetting(SettingName.Cells);
 

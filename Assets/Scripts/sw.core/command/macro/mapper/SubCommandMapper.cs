@@ -74,6 +74,8 @@ namespace Assets.Scripts.sw.core.command.macro.mapper
             if (_runtimeStorage.Contains(command)) _runtimeStorage.Remove(command);
 
             if (CompleteCallBack != null) CompleteCallBack(success);
+
+            _data = null;
         }
 
         private bool GuardsPass()

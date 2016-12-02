@@ -41,6 +41,8 @@ namespace Assets.Scripts.controller.commands
 
             chipFactory.Clear();
 
+            lightTouchFactory.Clear();
+
             var lightColor = playFieldModel.currentTurn == CellState.white ? Color.green : Color.red;
 
             foreach (var cell in cells)

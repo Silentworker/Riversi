@@ -8,7 +8,7 @@ namespace Assets.Scripts.sw.core.command
     {
         public virtual void Execute(object data = null)
         {
-            Debug.LogFormat("[{0}][{1}]: execute", Math.Ceiling(Time.time * 1000), GetType().Name);
+            Debug.LogFormat("[{0}][{1}]: execute", (int)Time.time * 1000, GetType().Name);
         }
 
         public void CancelParent()

@@ -173,7 +173,6 @@ namespace Assets.Scripts.model.playfield
         private void Analize()
         {
             #region Check allow 
-
             foreach (var cell in _cells)
             {
                 if (cell.State == CellState.allow) cell.State = CellState.empty;
@@ -183,11 +182,9 @@ namespace Assets.Scripts.model.playfield
             {
                 if (cell.State == CellState.empty && ChangingCells(cell).Count > 0) cell.State = CellState.allow;
             }
-
             #endregion
 
             #region Get score
-
             scoreWhite = 0;
             scoreBlack = 0;
             foreach (var cell in _cells)
@@ -203,6 +200,8 @@ namespace Assets.Scripts.model.playfield
             if (scoreWhite + scoreBlack >= Distance.PlayFieldSize * Distance.PlayFieldSize)
             {
                 eventDispatcher.DispatchEvent(GameEvent.FinishGame);
+
+                return;
             }
 
             #endregion

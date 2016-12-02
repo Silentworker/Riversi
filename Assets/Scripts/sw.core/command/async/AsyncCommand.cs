@@ -15,7 +15,7 @@ namespace Assets.Scripts.sw.core.command.async
 
         protected void DispatchComplete(bool suсcess)
         {
-            Debug.LogFormat("[{0}][{1}]: complete. Success: {2}", Math.Ceiling(Time.time * 1000), GetType().Name, suсcess);
+            Debug.LogFormat("[{0}][{1}]: complete. Success: {2}", (int)Time.time * 1000, GetType().Name, suсcess);
             if (CompleteHandler != null) CompleteHandler(this, suсcess);
         }
     }

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.model.playfield;
+﻿using Assets.Scripts.controller.headsup;
+using Assets.Scripts.model.playfield;
 using UnityEngine;
 using Zenject;
 using Command = Assets.Scripts.sw.core.command.Command;
@@ -9,11 +10,21 @@ namespace Assets.Scripts.controller.commands
     {
         [Inject]
         private IPlayFieldModel playFieldModel;
+        [Inject]
+        private IHeadsUpController headsUpController;
+
         public override void Execute(object data = null)
         {
             base.Execute();
 
-            Debug.LogFormat("Game result. white: {0}  black: {1}", playFieldModel.scoreWhite, playFieldModel.scoreBlack);
+            var scoreW = playFieldModel.scoreWhite;
+            var scoreB = playFieldModel.scoreBlack;
+
+            string promo = scoreW > scoreB ? "lightside wins" : scoreW < scoreB ? "darkside wins" : "draw";
+
+            headsUpController.ShowPromo(promo);
+
+            Debug.LogFormat("Game result. white: {0}  black: {1}", scoreW, scoreB);
         }
     }
 }

@@ -37,11 +37,18 @@ namespace Assets.Scripts.sw.core.command.map
 
         public void UnMap(string eventType, Type commandType)
         {
-            foreach (var commandMapper in _eventCommandMappers.Where(commandMapper => commandMapper.CommandType == commandType))
+            ISubCommandMapper mapper = null;
+            foreach (var commandMapper in _eventCommandMappers)
             {
-                eventDispatcher.RemoveEventListener(eventType, commandMapper.Execute);
-                _eventCommandMappers.Remove(commandMapper);
+                if (commandMapper.CommandType == commandType)
+                {
+                    mapper = commandMapper;
+                }
             }
+
+            if (mapper == null) return;
+            eventDispatcher.RemoveEventListener(eventType, mapper.Execute);
+            _eventCommandMappers.Remove(mapper);
         }
 
         public void DirectCommand(Type commandType, object data = null)

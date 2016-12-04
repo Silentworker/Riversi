@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.controller.config;
 using Assets.Scripts.controller.factory.chips;
+using Assets.Scripts.controller.factory.explosion;
 using Assets.Scripts.controller.factory.lightTouch;
 using Assets.Scripts.controller.headsup;
 using Assets.Scripts.controller.settings;
@@ -14,9 +15,10 @@ namespace Assets.Scripts.core
 {
     public class ApplicationInstaller : MonoInstaller<ApplicationInstaller>
     {
+        public HeadsUpController headsUpControllerInstance;
         public ChipsFactory chipsFactoryInstance;
         public LightTouchFactory lightTouchFactoryInstance;
-        public HeadsUpController headsUpControllerInstance;
+        public ExplosionFactory explosionFactoryInstance;
 
         public override void InstallBindings()
         {
@@ -37,6 +39,7 @@ namespace Assets.Scripts.core
             Container.Bind<IChipFactory>().FromInstance(chipsFactoryInstance).AsSingle();
             Container.Bind<ILightTouchFactory>().FromInstance(lightTouchFactoryInstance).AsSingle();
             Container.Bind<IHeadsUpController>().FromInstance(headsUpControllerInstance).AsSingle();
+            Container.Bind<IExplosionFactory>().FromInstance(explosionFactoryInstance).AsSingle();
             #endregion
         }
     }

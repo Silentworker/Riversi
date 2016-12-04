@@ -14,7 +14,7 @@ namespace Assets.Scripts.controller.commands
         public override void Prepare()
         {
             Add(typeof(InitPlayFieldCommand)).WithData(_data);
-            Add(typeof(SaveGameStateCommand));
+            Add(typeof(SaveGameCommand));
             Add(typeof(ShowStatsCommand));
         }
 

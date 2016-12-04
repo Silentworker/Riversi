@@ -109,26 +109,31 @@
     <Reference Include="DOTween">
       <HintPath>Assets\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>Assets\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween50">
-      <HintPath>Assets\Demigiant\DOTween\DOTween50.dll</HintPath>
-    </Reference>
     <Reference Include="DOTween43">
       <HintPath>Assets\Demigiant\DOTween\DOTween43.dll</HintPath>
     </Reference>
     <Reference Include="DOTween46">
       <HintPath>Assets\Demigiant\DOTween\DOTween46.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>Assets\Demigiant\DOTween\DOTween50.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Riversi.CSharp.Plugins.csproj">
+      <Project>{783DFE07-EE5C-31D6-5B31-5487B24B9EA2}</Project>
+      <Name>Riversi.CSharp.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="Riversi.CSharp.csproj">
       <Project>{62274BE9-65EA-CB55-D0E3-D71201C829E6}</Project>
       <Name>Riversi.CSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\ImageEffects\BloomEditor.cs" />
     <Compile Include="Assets\Zenject\Source\Editor\EditorWindow\GuiRenderableManager.cs" />
     <Compile Include="Assets\Zenject\Source\Editor\EditorWindow\IGuiRenderable.cs" />
     <Compile Include="Assets\Zenject\Source\Editor\EditorWindow\ZenjectEditorWindow.cs" />
@@ -151,6 +156,18 @@
     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
     <None Include="Assets\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\KriptoFX\Readme.txt" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsDistortionCullBack.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsDistortionParticlesCutout.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsGlowAdditive.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsGlowAdditiveMobile.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsParticleBlendInterpolated.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsParticleBlendLight.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsParticleBlendLightSoft.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter2.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
     <None Include="Assets\Zenject\LICENSE.txt" />
     <None Include="Assets\Zenject\Version.txt" />
   </ItemGroup>

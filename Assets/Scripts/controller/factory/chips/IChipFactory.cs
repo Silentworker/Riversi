@@ -4,6 +4,6 @@ namespace Assets.Scripts.controller.factory.chips
 {
     public interface IChipFactory : IFieldObjectFactory
     {
-        void Change(Cell cell);
+        void Remove(Cell cell);
     }
 }

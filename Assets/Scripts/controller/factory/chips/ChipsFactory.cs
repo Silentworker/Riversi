@@ -23,12 +23,10 @@ namespace Assets.Scripts.controller.factory.chips
             return base.Spawn(cell);
         }
 
-        public void Change(Cell cell)
+        public void Remove(Cell cell)
         {
             Destroy(CellObjects[cell]);
             CellObjects[cell] = null;
-
-            Spawn(cell);
         }
 
         void Awake()

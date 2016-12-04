@@ -26,9 +26,13 @@ namespace Assets.Scripts.sw.core.eventdispatcher
         public void RemoveEventListener(string eventType, UnityAction<object> eventHandler)
         {
             BaseEvent baseEvent = null;
-            if (_eventDictionary.TryGetValue(eventType, out baseEvent))
+
+            if (!_eventDictionary.TryGetValue(eventType, out baseEvent)) return;
+
+            baseEvent.RemoveListener(eventHandler);
+            if (baseEvent.GetPersistentEventCount() == 0)
             {
-                baseEvent.RemoveListener(eventHandler);
+                _eventDictionary.Remove(eventType);
             }
         }
 

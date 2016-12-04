@@ -13,6 +13,8 @@ namespace Assets.Scripts.sw.core.command.macro.mapper
 
         ISubCommandMapper WithData(object data);
 
+        ISubCommandMapper WithCompleteHandler(CustomDelegate.BoolParameter completeCallBack);
+
         Type CommandType { get; set; }
 
         CustomDelegate.BoolParameter CompleteCallBack { get; set; }

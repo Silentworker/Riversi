@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.controller.commands;
+using Assets.Scripts.controller.commands.deadlock;
 using Assets.Scripts.controller.commands.step;
 using Assets.Scripts.controller.events;
 using Assets.Scripts.sw.core.command.map;

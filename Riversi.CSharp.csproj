@@ -75,29 +75,50 @@
     <Reference Include="DOTween">
       <HintPath>Assets\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
-    <Reference Include="DOTween50">
-      <HintPath>Assets\Demigiant\DOTween\DOTween50.dll</HintPath>
-    </Reference>
     <Reference Include="DOTween43">
       <HintPath>Assets\Demigiant\DOTween\DOTween43.dll</HintPath>
     </Reference>
     <Reference Include="DOTween46">
       <HintPath>Assets\Demigiant\DOTween\DOTween46.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>Assets\Demigiant\DOTween\DOTween50.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Riversi.CSharp.Plugins.csproj">
+      <Project>{783DFE07-EE5C-31D6-5B31-5487B24B9EA2}</Project>
+      <Name>Riversi.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\KriptoFX\DemoSources\ExplosionDemoGUI.cs" />
+    <Compile Include="Assets\KriptoFX\DemoSources\ExplosionDemoReactivator.cs" />
+    <Compile Include="Assets\KriptoFX\DemoSources\ExplosionPlatformActivator.cs" />
+    <Compile Include="Assets\KriptoFX\DemoSources\ExplosionsFPS.cs" />
+    <Compile Include="Assets\KriptoFX\Scripts\ExplosionsBillboard.cs" />
+    <Compile Include="Assets\KriptoFX\Scripts\ExplosionsDeactivateRendererByTime.cs" />
+    <Compile Include="Assets\KriptoFX\Scripts\ExplosionsLightCurves.cs" />
+    <Compile Include="Assets\KriptoFX\Scripts\ExplosionsParticleSystemScaler.cs" />
+    <Compile Include="Assets\KriptoFX\Scripts\ExplosionsScaleCurves.cs" />
+    <Compile Include="Assets\KriptoFX\Scripts\ExplosionsShaderColorGradient.cs" />
+    <Compile Include="Assets\KriptoFX\Scripts\ExplosionsShaderFloatCurves.cs" />
+    <Compile Include="Assets\KriptoFX\Scripts\ExplosionsShaderQueue.cs" />
+    <Compile Include="Assets\KriptoFX\Scripts\ExplosionsSpriteSheetAnimation.cs" />
     <Compile Include="Assets\Scripts\consts\Distance.cs" />
+    <Compile Include="Assets\Scripts\consts\Duration.cs" />
     <Compile Include="Assets\Scripts\controller\behaviour\lighttouch\LightTouch.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\InitPlayFieldCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\FinishtGameCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\InitPlayFieldCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\ShowStatsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\StartGameCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\step\ChangeCellsCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\step\DeadLockCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\deadlock\DeadLockCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\HideLightsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\MakeStepCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\step\SaveGameStateCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\step\SpawnChipCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\step\ResetLightTouchesCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\SaveGameCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\ShowLightTouchesCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\SpawnCellsCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\SpawnExplosionsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\config\CommandsConfig.cs" />
     <Compile Include="Assets\Scripts\controller\config\ICommandsConfig.cs" />
     <Compile Include="Assets\Scripts\controller\events\GameEvent.cs" />
@@ -105,6 +126,8 @@
     <Compile Include="Assets\Scripts\controller\factory\IFieldObjectFactory.cs" />
     <Compile Include="Assets\Scripts\controller\factory\chips\ChipsFactory.cs" />
     <Compile Include="Assets\Scripts\controller\factory\chips\IChipFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\factory\explosion\ExplosionFactory.cs" />
+    <Compile Include="Assets\Scripts\controller\factory\explosion\IExplosionFactory.cs" />
     <Compile Include="Assets\Scripts\controller\factory\lightTouch\ILightTouchFactory.cs" />
     <Compile Include="Assets\Scripts\controller\factory\lightTouch\LightTouchFactory.cs" />
     <Compile Include="Assets\Scripts\controller\headsup\HeadsUpController.cs" />
@@ -347,6 +370,18 @@
     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
     <None Include="Assets\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\KriptoFX\Readme.txt" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsDistortionCullBack.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsDistortionParticlesCutout.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsGlowAdditive.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsGlowAdditiveMobile.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsParticleBlendInterpolated.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsParticleBlendLight.shader" />
+    <None Include="Assets\KriptoFX\Shaders\ExplosionsParticleBlendLightSoft.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter2.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
     <None Include="Assets\Zenject\LICENSE.txt" />
     <None Include="Assets\Zenject\Version.txt" />
   </ItemGroup>

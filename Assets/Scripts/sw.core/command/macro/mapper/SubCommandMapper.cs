@@ -46,6 +46,12 @@ namespace Assets.Scripts.sw.core.command.macro.mapper
             return this;
         }
 
+        public ISubCommandMapper WithCompleteHandler(CustomDelegate.BoolParameter completeCallBack)
+        {
+            CompleteCallBack += completeCallBack;
+            return this;
+        }
+
         public void Execute(object data = null)
         {
             if (GuardsPass())

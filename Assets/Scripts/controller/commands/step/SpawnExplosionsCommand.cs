@@ -46,6 +46,7 @@ namespace Assets.Scripts.controller.commands.step
 
         private void Complete()
         {
+            explosionFactory.Clear();
             DispatchComplete(true);
         }
     }

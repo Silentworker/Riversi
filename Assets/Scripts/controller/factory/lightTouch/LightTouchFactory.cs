@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Assets.Scripts.controller.behaviour.lighttouch;
+﻿using Assets.Scripts.controller.behaviour.lighttouch;
 using Assets.Scripts.model.playfield;
 using UnityEngine;
 
@@ -7,14 +6,12 @@ namespace Assets.Scripts.controller.factory.lightTouch
 {
     public class LightTouchFactory : FieldObjectFactory, ILightTouchFactory
     {
+        [Header("Colors")] public Color DarsSideLightColor;
+
         public GameObject LightsFolder;
-
-        [Header("Prefabs")]
-        public GameObject LightTouchPrefab;
-
-        [Header("Colors")]
-        public Color DarsSideLightColor;
         public Color LightSideLightColor;
+
+        [Header("Prefabs")] public GameObject LightTouchPrefab;
 
         public override GameObject Spawn(Cell cell)
         {

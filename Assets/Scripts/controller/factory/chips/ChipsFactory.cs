@@ -1,37 +1,49 @@
 ﻿using System;
-using System.Linq;
 using Assets.Scripts.model.playfield;
-using ModestTree;
 using UnityEngine;
 
 namespace Assets.Scripts.controller.factory.chips
 {
-    public class ChipsFactory : FieldObjectFactory, IChipFactory
+    public class ChipsFactory : MonoBehaviour, IChipFactory
     {
+        [Header("Folder")]
         public GameObject ChipsFolder;
 
         [Header("Prefabs")]
         public GameObject WhiteChipPrefab;
         public GameObject BlackChipPrefab;
 
-        public override GameObject Spawn(Cell cell)
-        {
-            Prefab = cell.State == CellState.white ? WhiteChipPrefab
-                : cell.State == CellState.black ? BlackChipPrefab : null;
-            if (Prefab == null) throw new Exception("Spawning wrong state cell. {0}".Fmt(cell));
+        [Header("Factories")]
+        public FieldObjectFactory WhiteFactory;
+        public FieldObjectFactory BlackFactory;
 
-            return base.Spawn(cell);
+        public GameObject Spawn(Cell cell)
+        {
+            if (!CellState.ValidChip(cell)) throw new Exception("Not valid chip cell state");
+
+            var factory = cell.State == CellState.black ? BlackFactory : WhiteFactory;
+            return factory.Spawn(cell);
         }
 
         public void Remove(Cell cell)
         {
-            Destroy(CellObjects[cell]);
-            CellObjects[cell] = null;
+            WhiteFactory.Remove(cell);
+            BlackFactory.Remove(cell);
+        }
+
+        public void Clear()
+        {
+            WhiteFactory.Clear();
+            BlackFactory.Clear();
         }
 
         void Awake()
         {
-            Folder = ChipsFolder;
+            BlackFactory.Prefab = BlackChipPrefab;
+            BlackFactory.Folder = ChipsFolder;
+
+            WhiteFactory.Prefab = WhiteChipPrefab;
+            WhiteFactory.Folder = ChipsFolder;
         }
     }
 }

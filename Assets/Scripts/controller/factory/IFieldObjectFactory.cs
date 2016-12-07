@@ -7,6 +7,8 @@ namespace Assets.Scripts.controller.factory
     {
         GameObject Spawn(Cell cell);
 
+        void Remove(Cell cell);
+
         void Clear();
     }
 }

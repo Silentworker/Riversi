@@ -6,5 +6,10 @@
         public static readonly byte black = 2;
         public static readonly byte empty = 0;
         public static readonly byte allow = 4; // allow step
+
+        public static bool ValidChip(Cell cell)
+        {
+            return cell.State == black || cell.State == white;
+        }
     }
 }

@@ -44,6 +44,7 @@ namespace Assets.Scripts.controller.commands.step
             }
 
             commandsMap.UnMap(GameEvent.MakeStep, typeof(MakeStepCommand));
+            commandsMap.UnMap(GameEvent.StartGame, typeof(StartGameCommand));
             CompleteHandler += OnComplete;
 
             if (stepCell.State != CellState.allow)
@@ -63,6 +64,7 @@ namespace Assets.Scripts.controller.commands.step
         private void OnComplete(ICommand command, bool success)
         {
             commandsMap.Map(GameEvent.MakeStep, typeof(MakeStepCommand));
+            commandsMap.Map(GameEvent.StartGame, typeof(StartGameCommand));
         }
     }
 }

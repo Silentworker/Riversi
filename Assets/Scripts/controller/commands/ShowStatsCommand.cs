@@ -18,7 +18,7 @@ namespace Assets.Scripts.controller.commands
         {
             base.Execute();
 
-            headsUpController.SetTurn(playFieldModel.currentTurn);
+            headsUpController.ShowTurn(playFieldModel.currentTurn);
             headsUpController.SetScore(playFieldModel.scoreWhite, playFieldModel.scoreBlack);
         }
     }

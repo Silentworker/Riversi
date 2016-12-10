@@ -2,11 +2,15 @@
 {
     public interface IHeadsUpController
     {
-        void SetTurn(byte turn);
+        void ShowTurn(byte turn);
+
+        void HideStats();
 
         void SetScore(int scoreWhite, int scoreBlack);
 
-        void ShowPromo(string text, float duration = float.NaN);
+        void ShowBigPromo(string text, float duration = float.NaN);
+
+        void ShowSmallPromo(string text, float duration = float.NaN);
 
         void ClearPromo();
     }

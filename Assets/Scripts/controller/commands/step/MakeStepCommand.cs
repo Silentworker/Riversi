@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.controller.commands.step.deadlock;
+using Assets.Scripts.controller.commands.step.win;
 using Assets.Scripts.controller.events;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.command.macro;
@@ -24,12 +26,13 @@ namespace Assets.Scripts.controller.commands.step
         public override void Prepare()
         {
             Add(typeof(SaveGameCommand));
-            Add(typeof(HideLightsCommand));
+            Add(typeof(HideLightsAndTurnTextCommand));
             Add(typeof(SpawnCellsCommand)).WithData(_stepCellList);
             Add(typeof(SpawnExplosionsCommand)).WithData(_changingCells);
             Add(typeof(SpawnCellsCommand)).WithData(_changingCells);
             Add(typeof(ShowLightTouchesCommand)).WithData(_allowStepCells);
             Add(typeof(ShowStatsCommand));
+            Add(typeof(ShowGameResultsCommand)).WithGuard(typeof(IsFinishGameGuard));
         }
 
         public override void Execute(object data = null)

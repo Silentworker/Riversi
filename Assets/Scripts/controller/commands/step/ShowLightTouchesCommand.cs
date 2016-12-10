@@ -30,11 +30,6 @@ namespace Assets.Scripts.controller.commands.step
             }
             lightTouchFactory.FadeInAll();
 
-            DOVirtual.DelayedCall(Duration.AllowStepAnimation, Complete);
-        }
-
-        private void Complete()
-        {
             DispatchComplete(true);
         }
     }

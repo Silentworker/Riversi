@@ -20,6 +20,7 @@ namespace Assets.Scripts.core
 
         public ApplicationModel(IEventDispatcher dispatcher, DiContainer container) : base(dispatcher, container)
         {
+
         }
 
         public void Init()

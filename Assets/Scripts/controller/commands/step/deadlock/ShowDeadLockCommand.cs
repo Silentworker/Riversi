@@ -1,12 +1,12 @@
 ﻿using Assets.Scripts.controller.headsup;
 using Assets.Scripts.model.playfield;
-using Assets.Scripts.sw.core.command.async;
 using DG.Tweening;
 using Zenject;
+using Command = Assets.Scripts.sw.core.command.Command;
 
-namespace Assets.Scripts.controller.commands.deadlock
+namespace Assets.Scripts.controller.commands.step.deadlock
 {
-    public class DeadLockCommand : AsyncCommand
+    public class ShowDeadLockCommand : Command
     {
         [Inject]
         private IPlayFieldModel playFieldModel;
@@ -19,14 +19,7 @@ namespace Assets.Scripts.controller.commands.deadlock
             base.Execute();
 
             const float promptDuration = 3f;
-            headsUpController.ShowPromo("Deadlock. Change Turn", promptDuration);
-            DOVirtual.DelayedCall(promptDuration, Complete);
-        }
-
-        private void Complete()
-        {
-            playFieldModel.SwitchStepOnDeadLock();
-            DispatchComplete(true);
+            headsUpController.ShowSmallPromo("Deadlock. Change Turn", promptDuration);
         }
     }
 }

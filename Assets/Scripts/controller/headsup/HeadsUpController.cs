@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.consts;
 using Assets.Scripts.controller.events;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.eventdispatcher;
@@ -12,10 +13,16 @@ namespace Assets.Scripts.controller.headsup
 {
     public class HeadsUpController : MonoBehaviour, IHeadsUpController
     {
-        [Header("Text")]
+        [Header("Turn")]
+        public Vector3 HidePosition;
+        public Vector3 ShowPosition;
         public Text TurnText;
+        [Header("Score")]
         public Text ScoreWhite;
         public Text ScoreBlack;
+        [Header("Promo")]
+        public int SmallPromoTextSize;
+        public int BigPromoTextSize;
         public Text PromoText;
         [Header("Side colors")]
         public Color DarkSideColor;
@@ -29,18 +36,47 @@ namespace Assets.Scripts.controller.headsup
 
         private Tween _promoTween;
 
-        public void SetTurn(byte turn)
+        public void ShowTurn(byte turn)
         {
-            TurnText.color = turn == CellState.white ? LightSideColor : DarkSideColor;
+            var color = turn == CellState.white ? LightSideColor : DarkSideColor;
+            TurnText.color = new Color(color.r, color.g, color.b, 0f);
+
+            TurnText.DOFade(1f, Duration.StatsTextFadeAnimation);
+        }
+
+        public void HideStats()
+        {
+            TurnText.DOFade(0f, Duration.StatsTextFadeAnimation);
+            ScoreBlack.DOFade(0f, Duration.StatsTextFadeAnimation);
+            ScoreWhite.DOFade(0f, Duration.StatsTextFadeAnimation);
         }
 
         public void SetScore(int scoreWhite, int scoreBlack)
         {
+            var color = LightSideColor;
+            ScoreWhite.color = new Color(color.r, color.g, color.b, 0f);
             ScoreWhite.text = scoreWhite.ToString();
+            ScoreWhite.DOFade(1f, Duration.StatsTextFadeAnimation);
+
+            color = DarkSideColor;
+            ScoreBlack.color = new Color(color.r, color.g, color.b, 0f);
             ScoreBlack.text = scoreBlack.ToString();
+            ScoreBlack.DOFade(1f, Duration.StatsTextFadeAnimation);
         }
 
-        public void ShowPromo(string text, float duration = float.NaN)
+        public void ShowBigPromo(string text, float duration = float.NaN)
+        {
+            PromoText.fontSize = BigPromoTextSize;
+            ShowPromo(text, duration);
+        }
+
+        public void ShowSmallPromo(string text, float duration = float.NaN)
+        {
+            PromoText.fontSize = SmallPromoTextSize;
+            ShowPromo(text, duration);
+        }
+
+        private void ShowPromo(string text, float duration = float.NaN)
         {
             if (_promoTween != null) { _promoTween.Kill(); }
 

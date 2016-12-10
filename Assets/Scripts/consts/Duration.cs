@@ -6,5 +6,6 @@
         public static readonly float BetweenExplosions = 0.3f;
         public static readonly float AllowStepAnimation = 1f;
         public static readonly float SpawnChip = .5f;
+        public static readonly float StatsTextFadeAnimation = 0.5f;
     }
 }

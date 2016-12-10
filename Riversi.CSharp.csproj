@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.4.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -106,12 +108,13 @@
     <Compile Include="Assets\Scripts\consts\Distance.cs" />
     <Compile Include="Assets\Scripts\consts\Duration.cs" />
     <Compile Include="Assets\Scripts\controller\behaviour\lighttouch\LightTouch.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\FinishtGameCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\win\ShowGameResultsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\InitPlayFieldCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\ShowStatsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\StartGameCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\deadlock\DeadLockCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\step\HideLightsCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\deadlock\ShowDeadLockCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\win\IsFinishGameGuard.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\HideLightsAndTurnTextCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\MakeStepCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\SaveGameCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\ShowLightTouchesCommand.cs" />
@@ -135,6 +138,8 @@
     <Compile Include="Assets\Scripts\core\ApplicationInit.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationInstaller.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationModel.cs" />
+    <Compile Include="Assets\Scripts\model\ai\AIProcessor.cs" />
+    <Compile Include="Assets\Scripts\model\ai\IAIProcessor.cs" />
     <Compile Include="Assets\Scripts\model\playfield\Cell.cs" />
     <Compile Include="Assets\Scripts\model\playfield\CellState.cs" />
     <Compile Include="Assets\Scripts\model\playfield\IPlayFieldModel.cs" />
@@ -383,5 +388,6 @@
     <None Include="Assets\Zenject\LICENSE.txt" />
     <None Include="Assets\Zenject\Version.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

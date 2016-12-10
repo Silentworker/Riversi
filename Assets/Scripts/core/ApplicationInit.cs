@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.controller.config;
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +18,8 @@ namespace Assets.Scripts.core
             commandsConfig.Init();
 
             applicationModel.Init();
+
+            DOTween.Init();
         }
     }
 }

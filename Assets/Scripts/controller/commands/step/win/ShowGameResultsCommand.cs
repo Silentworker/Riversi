@@ -4,9 +4,9 @@ using UnityEngine;
 using Zenject;
 using Command = Assets.Scripts.sw.core.command.Command;
 
-namespace Assets.Scripts.controller.commands
+namespace Assets.Scripts.controller.commands.step.win
 {
-    public class FinishtGameCommand : Command
+    public class ShowGameResultsCommand : Command
     {
         [Inject]
         private IPlayFieldModel playFieldModel;
@@ -22,7 +22,7 @@ namespace Assets.Scripts.controller.commands
 
             string promo = scoreW > scoreB ? "lightside wins" : scoreW < scoreB ? "darkside wins" : "draw";
 
-            headsUpController.ShowPromo(promo);
+            headsUpController.ShowBigPromo(promo);
 
             Debug.LogFormat("Game result. white: {0}  black: {1}", scoreW, scoreB);
         }

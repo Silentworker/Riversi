@@ -14,11 +14,17 @@ namespace Assets.Scripts.model.playfield
 
         byte currentTurn { get; }
 
+        bool isFinishGame { get; }
+
+        bool isDeadlock { get; }
+
         void Init(Cell[,] cells = null, byte currentTurn = 0);
 
         void SwitchStepOnDeadLock();
 
         void SaveCurrentState();
+
+        Cell[,] GetCellsClone();
 
         List<Cell> CalculateChangingCells(Cell cell);
     }

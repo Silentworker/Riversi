@@ -30,6 +30,7 @@ namespace Assets.Scripts.model.playfield
 
         [Inject]
         private IHeadsUpController headsUpController;
+
         [Inject]
         private ISettingsManager settingsManager;
 
@@ -43,6 +44,16 @@ namespace Assets.Scripts.model.playfield
         }
 
         public byte currentTurn { get; private set; }
+
+        public bool isFinishGame
+        {
+            get { return scoreBlack + scoreWhite >= Distance.PlayFieldSize * Distance.PlayFieldSize; }
+        }
+
+        public bool isDeadlock
+        {
+            get { return !isFinishGame && (allowedStepCells == null || allowedStepCells.Length == 0); }
+        }
 
         public int scoreBlack { get; private set; }
 
@@ -58,7 +69,7 @@ namespace Assets.Scripts.model.playfield
             get { return _cells.Cast<Cell>().Where(cell => cell.State != CellState.empty).ToArray(); }
         }
 
-        public void Init(Cell[,] cells = null, byte turn = (byte)0)
+        public void Init(Cell[,] cells = null, byte turn = 0)
         {
             if (cells != null)
             {
@@ -104,6 +115,11 @@ namespace Assets.Scripts.model.playfield
             settingsManager.SetSetting(SettingName.Turn, currentTurn);
         }
 
+        public Cell[,] GetCellsClone()
+        {
+            return (Cell[,])_cells.Clone();
+        }
+
         public List<Cell> CalculateChangingCells(Cell stepCell)
         {
             var changingCells = ChangingCells(stepCell);
@@ -118,8 +134,6 @@ namespace Assets.Scripts.model.playfield
             currentTurn = oppositeTurn;
 
             Analize();
-
-            Logging();
 
             return changingCells;
         }
@@ -172,7 +186,6 @@ namespace Assets.Scripts.model.playfield
 
         private void Analize()
         {
-            #region Check allow 
             foreach (var cell in _cells)
             {
                 if (cell.State == CellState.allow) cell.State = CellState.empty;
@@ -182,9 +195,7 @@ namespace Assets.Scripts.model.playfield
             {
                 if (cell.State == CellState.empty && ChangingCells(cell).Count > 0) cell.State = CellState.allow;
             }
-            #endregion
 
-            #region Get score
             scoreWhite = 0;
             scoreBlack = 0;
             foreach (var cell in _cells)
@@ -193,27 +204,13 @@ namespace Assets.Scripts.model.playfield
                 else if (cell.State == CellState.black) scoreBlack++;
             }
 
-            #endregion
-
-            #region Check win
-
-            if (scoreWhite + scoreBlack >= Distance.PlayFieldSize * Distance.PlayFieldSize)
-            {
-                eventDispatcher.DispatchEvent(GameEvent.FinishGame);
-
-                return;
-            }
-
-            #endregion
-
-            #region Check deadlock
-
-            if (_cells.Cast<Cell>().All(cell => cell.State != CellState.allow))
+            if (isDeadlock)
             {
                 eventDispatcher.DispatchEvent(GameEvent.Deadlock);
+                SwitchStepOnDeadLock();
             }
 
-            #endregion
+            Logging();
         }
 
         private void Logging()

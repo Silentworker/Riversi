@@ -120,7 +120,12 @@ namespace Assets.Scripts.model.playfield
             return (Cell[,])_cells.Clone();
         }
 
-        public List<Cell> CalculateChangingCells(Cell stepCell)
+        public Cell GetCell(int X, int Y)
+        {
+            return _cells.Cast<Cell>().FirstOrDefault(cell => cell.X == X && cell.Y == Y);
+        }
+
+        public List<Cell> MakeStepAndGetChangingCells(Cell stepCell)
         {
             var changingCells = ChangingCells(stepCell);
             foreach (var cell in changingCells)

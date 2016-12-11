@@ -6,6 +6,7 @@ using Assets.Scripts.controller.events;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.command.macro;
 using Assets.Scripts.sw.core.command.map;
+using Assets.Scripts.sw.core.eventdispatcher;
 using UnityEngine;
 using Zenject;
 using ICommand = Assets.Scripts.sw.core.command.ICommand;
@@ -22,6 +23,8 @@ namespace Assets.Scripts.controller.commands.step
         private ICommandsMap commandsMap;
         [Inject]
         private IPlayFieldModel playFieldModel;
+        [Inject]
+        private IEventDispatcher evendDispatcher;
 
         public override void Prepare()
         {
@@ -58,7 +61,7 @@ namespace Assets.Scripts.controller.commands.step
 
             _stepCellList = new List<Cell> { stepCell };
 
-            _changingCells = playFieldModel.CalculateChangingCells(stepCell);
+            _changingCells = playFieldModel.MakeStepAndGetChangingCells(stepCell);
             _allowStepCells = playFieldModel.allowedStepCells;
 
             base.Execute();
@@ -68,6 +71,8 @@ namespace Assets.Scripts.controller.commands.step
         {
             commandsMap.Map(GameEvent.MakeStep, typeof(MakeStepCommand));
             commandsMap.Map(GameEvent.StartGame, typeof(StartGameCommand));
+
+            if (!playFieldModel.isFinishGame) evendDispatcher.DispatchEvent(GameEvent.InterStep);
         }
     }
 }

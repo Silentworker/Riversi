@@ -33,7 +33,7 @@ namespace Assets.Scripts.controller.commands.step
                 chipsFactory.Spawn(cell);
             }
 
-            DOVirtual.DelayedCall(Duration.SpawnChip * сells.Count, Complete);
+            DOVirtual.DelayedCall(Duration.SpawnChipAnimation * сells.Count, Complete);
         }
 
         private void Complete()

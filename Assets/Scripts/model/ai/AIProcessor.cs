@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.model.playfield;
+﻿using System.Diagnostics;
+using Assets.Scripts.model.playfield;
 using Zenject;
 
 namespace Assets.Scripts.model.ai
@@ -7,24 +8,31 @@ namespace Assets.Scripts.model.ai
     {
         private Cell[,] _cells;
 
-        [Inject] private DiContainer container;
+        [Inject]
+        private DiContainer container;
 
-        [Inject] private IPlayFieldModel playFieldModel;
+        [Inject]
+        private IPlayFieldModel playFieldModel;
+
+        private IPlayFieldModel _calculationFieldModel;
 
         public Cell GetStepCell()
         {
+            if (_calculationFieldModel == null)
+            {
+                _calculationFieldModel = container.Instantiate<PlayFieldModel>();
+            }
+
             _cells = playFieldModel.GetCellsClone();
 
-            var fieldModel = container.Instantiate<PlayFieldModel>();
-
-            fieldModel.Init(_cells);
+            _calculationFieldModel.Init(_cells);
 
             Cell stepCell = null;
 
             var maxChange = 0;
-            foreach (var cell in fieldModel.allowedStepCells)
+            foreach (var cell in _calculationFieldModel.allowedStepCells)
             {
-                var count = fieldModel.CalculateChangingCells(cell).Count;
+                var count = _calculationFieldModel.ChangingCells(cell).Count;
                 if (count > maxChange)
                 {
                     maxChange = count;
@@ -32,7 +40,7 @@ namespace Assets.Scripts.model.ai
                 }
             }
 
-            return stepCell;
+            return stepCell != null ? playFieldModel.GetCell(stepCell.X, stepCell.Y) : null;
         }
     }
 }

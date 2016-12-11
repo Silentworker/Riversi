@@ -2,10 +2,10 @@
 {
     public static class Duration
     {
-        public static readonly float ExplosionAnimation = 2f;
-        public static readonly float BetweenExplosions = 0.3f;
-        public static readonly float AllowStepAnimation = 1f;
-        public static readonly float SpawnChip = .5f;
-        public static readonly float StatsTextFadeAnimation = 0.5f;
+        public const float BetweenExplosions = 0.3f;
+        public const float ExplosionAnimation = 2f;
+        public const float StatsTextFadeAnimation = 0.5f;
+        public const float AllowStepAnimation = 1f;
+        public const float SpawnChipAnimation = .5f;
     }
 }

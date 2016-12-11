@@ -26,6 +26,10 @@ namespace Assets.Scripts.model.playfield
 
         Cell[,] GetCellsClone();
 
-        List<Cell> CalculateChangingCells(Cell cell);
+        Cell GetCell(int X, int Y);
+
+        List<Cell> MakeStepAndGetChangingCells(Cell cell);
+
+        List<Cell> ChangingCells(Cell cell);
     }
 }

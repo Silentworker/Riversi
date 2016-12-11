@@ -107,7 +107,12 @@
     <Compile Include="Assets\KriptoFX\Scripts\ExplosionsSpriteSheetAnimation.cs" />
     <Compile Include="Assets\Scripts\consts\Distance.cs" />
     <Compile Include="Assets\Scripts\consts\Duration.cs" />
+    <Compile Include="Assets\Scripts\consts\Side.cs" />
     <Compile Include="Assets\Scripts\controller\behaviour\lighttouch\LightTouch.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\ai\InterStepCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\ai\IsAIPlayerGuard.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\ai\MakeAIStepCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\init\InitGameCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\win\ShowGameResultsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\InitPlayFieldCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\ShowStatsCommand.cs" />
@@ -138,7 +143,9 @@
     <Compile Include="Assets\Scripts\core\ApplicationInit.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationInstaller.cs" />
     <Compile Include="Assets\Scripts\core\ApplicationModel.cs" />
+    <Compile Include="Assets\Scripts\model\ai\AIModel.cs" />
     <Compile Include="Assets\Scripts\model\ai\AIProcessor.cs" />
+    <Compile Include="Assets\Scripts\model\ai\IAIModel.cs" />
     <Compile Include="Assets\Scripts\model\ai\IAIProcessor.cs" />
     <Compile Include="Assets\Scripts\model\playfield\Cell.cs" />
     <Compile Include="Assets\Scripts\model\playfield\CellState.cs" />

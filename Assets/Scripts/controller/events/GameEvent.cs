@@ -4,9 +4,11 @@ namespace Assets.Scripts.controller.events
 {
     public class GameEvent : BaseEvent
     {
-        public static readonly string StartGame = "gameEvent_StartGame";
-        public static readonly string FinishGame = "gameEvent_FinishGame";
-        public static readonly string Deadlock = "gameEvent_Deadlock";
-        public static readonly string MakeStep = "gameEvent_MakeStep";
+        public const string InitGame = "gameEvent_InitGame";
+        public const string StartGame = "gameEvent_StartGame";
+        public const string FinishGame = "gameEvent_FinishGame";
+        public const string Deadlock = "gameEvent_Deadlock";
+        public const string MakeStep = "gameEvent_MakeStep";
+        public const string InterStep = "gameEvent_StepComplete";
     }
 }

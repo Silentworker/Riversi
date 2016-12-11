@@ -2,10 +2,10 @@
 {
     public struct CellState
     {
-        public static readonly byte white = 1;
-        public static readonly byte black = 2;
-        public static readonly byte empty = 0;
-        public static readonly byte allow = 4; // allow step
+        public const byte white = 1;
+        public const byte black = 2;
+        public const byte empty = 0;
+        public const byte allow = 4; // allow step
 
         public static bool ValidChip(Cell cell)
         {

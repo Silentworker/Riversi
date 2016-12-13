@@ -6,7 +6,7 @@ namespace Assets.Scripts.model.playfield
     {
         Cell[] allowedStepCells { get; }
 
-        Cell[] notEmptyCells { get; }
+        Cell[] chipCells { get; }
 
         int scoreWhite { get; }
 
@@ -18,6 +18,8 @@ namespace Assets.Scripts.model.playfield
 
         bool isDeadlock { get; }
 
+        bool CalcMode { get; set; }
+
         void Init(Cell[,] cells = null, byte currentTurn = 0);
 
         void SwitchStepOnDeadLock();
@@ -28,8 +30,8 @@ namespace Assets.Scripts.model.playfield
 
         Cell GetCell(int X, int Y);
 
-        List<Cell> MakeStepAndGetChangingCells(Cell cell);
+        Cell[] MakeStepAndGetChangingCells(Cell cell);
 
-        List<Cell> ChangingCells(Cell cell);
+        Cell[] ChangingCells(Cell cell);
     }
 }

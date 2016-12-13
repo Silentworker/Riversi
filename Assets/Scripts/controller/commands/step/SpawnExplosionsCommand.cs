@@ -20,7 +20,7 @@ namespace Assets.Scripts.controller.commands.step
 
         public override void Execute(object data = null)
         {
-            var cells = (List<Cell>)data;
+            var cells = (Cell[])data;
 
             if (cells == null)
             {
@@ -29,7 +29,7 @@ namespace Assets.Scripts.controller.commands.step
                 return;
             }
 
-            for (var i = 0; i < cells.Count; i++)
+            for (var i = 0; i < cells.Length; i++)
             {
                 var cell = cells[i];
                 DOVirtual.DelayedCall(Duration.BetweenExplosions * i, () =>
@@ -39,7 +39,7 @@ namespace Assets.Scripts.controller.commands.step
                   });
             }
 
-            var completeDuration = Duration.BetweenExplosions * cells.Count + Duration.ExplosionAnimation;
+            var completeDuration = Duration.BetweenExplosions * cells.Length + Duration.ExplosionAnimation;
             DOVirtual.DelayedCall(completeDuration, Complete);
             base.Execute();
         }

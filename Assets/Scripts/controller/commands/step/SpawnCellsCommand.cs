@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Scripts.consts;
+﻿using Assets.Scripts.consts;
 using Assets.Scripts.controller.factory.chips;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.command.async;
@@ -12,18 +10,17 @@ namespace Assets.Scripts.controller.commands.step
 {
     public class SpawnCellsCommand : AsyncCommand
     {
-        [Inject]
-        private IChipFactory chipsFactory;
+        [Inject] private IChipFactory chipsFactory;
 
         public override void Execute(object data = null)
         {
             base.Execute();
 
-            var сells = (List<Cell>)data;
+            var сells = (Cell[]) data;
 
             if (сells == null)
             {
-                Debug.LogError("No cell to explose");
+                Debug.LogError("No cell to spawn");
                 DispatchComplete(false);
                 return;
             }
@@ -33,7 +30,7 @@ namespace Assets.Scripts.controller.commands.step
                 chipsFactory.Spawn(cell);
             }
 
-            DOVirtual.DelayedCall(Duration.SpawnChipAnimation * сells.Count, Complete);
+            DOVirtual.DelayedCall(Duration.SpawnChipAnimation, Complete);
         }
 
         private void Complete()

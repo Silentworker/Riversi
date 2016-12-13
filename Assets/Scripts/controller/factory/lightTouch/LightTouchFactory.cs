@@ -6,12 +6,15 @@ namespace Assets.Scripts.controller.factory.lightTouch
 {
     public class LightTouchFactory : FieldObjectFactory, ILightTouchFactory
     {
-        [Header("Colors")] public Color DarsSideLightColor;
-
+        [Header("Floder")]
         public GameObject LightsFolder;
-        public Color LightSideLightColor;
 
-        [Header("Prefabs")] public GameObject LightTouchPrefab;
+        [Header("Colors")]
+        public Color LightSideColor;
+        public Color DarktSideColor;
+
+        [Header("Prefabs")]
+        public GameObject LightTouchPrefab;
 
         public override GameObject Spawn(Cell cell)
         {
@@ -35,6 +38,9 @@ namespace Assets.Scripts.controller.factory.lightTouch
                 cellObject.Value.GetComponent<LightTouch>().FadeIn();
             }
         }
+
+        public Color DarkSideLightColor { get { return DarktSideColor; } }
+        public Color LightSideLightColor { get { return LightSideColor; } }
 
         private void Awake()
         {

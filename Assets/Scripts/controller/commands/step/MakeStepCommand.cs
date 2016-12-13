@@ -16,8 +16,8 @@ namespace Assets.Scripts.controller.commands.step
     public class MakeStepCommand : SequenceMacro
     {
         private Cell[] _allowStepCells;
-        private List<Cell> _changingCells;
-        private List<Cell> _stepCellList;
+        private Cell[] _changingCells;
+        private Cell _stepCell;
 
         [Inject]
         private ICommandsMap commandsMap;
@@ -30,7 +30,7 @@ namespace Assets.Scripts.controller.commands.step
         {
             Add(typeof(SaveGameCommand));
             Add(typeof(HideLightsAndTurnTextCommand));
-            Add(typeof(SpawnCellsCommand)).WithData(_stepCellList);
+            Add(typeof(SpawnCellsCommand)).WithData(new[] { _stepCell });
             Add(typeof(SpawnExplosionsCommand)).WithData(_changingCells);
             Add(typeof(SpawnCellsCommand)).WithData(_changingCells);
             Add(typeof(ShowLightTouchesCommand)).WithData(_allowStepCells);
@@ -40,9 +40,9 @@ namespace Assets.Scripts.controller.commands.step
 
         public override void Execute(object data = null)
         {
-            var stepCell = (Cell)data;
+            _stepCell = (Cell)data;
 
-            if (stepCell == null)
+            if (_stepCell == null)
             {
                 Debug.LogError("Step cell is null");
                 DispatchComplete(false);
@@ -53,15 +53,13 @@ namespace Assets.Scripts.controller.commands.step
             commandsMap.UnMap(GameEvent.StartGame, typeof(StartGameCommand));
             CompleteHandler += OnComplete;
 
-            if (stepCell.State != CellState.allow)
+            if (_stepCell.State != CellState.allow)
             {
                 DispatchComplete(false);
                 throw new Exception("Trying to make a step on not allowed cell");
             }
 
-            _stepCellList = new List<Cell> { stepCell };
-
-            _changingCells = playFieldModel.MakeStepAndGetChangingCells(stepCell);
+            _changingCells = playFieldModel.MakeStepAndGetChangingCells(_stepCell);
             _allowStepCells = playFieldModel.allowedStepCells;
 
             base.Execute();

@@ -6,6 +6,7 @@ using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.command.macro;
 using Assets.Scripts.sw.core.command.map;
 using DG.Tweening;
+using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.controller.commands.ai
@@ -30,13 +31,18 @@ namespace Assets.Scripts.controller.commands.ai
         {
             CommandsMap.UnMap(GameEvent.MakeStep, typeof(MakeStepCommand));
 
-            headsUpController.ShowSmallPromo("AI move", 2f);
+            var delay = 3f;
+
+            headsUpController.ShowSmallPromo("AI move", delay);
             _stepCell = aiProcessor.GetStepCell();
+
+            Debug.LogFormat("Ai step {0}", _stepCell);
             if (_stepCell == null)
             {
                 DispatchComplete(false);
             }
-            DOVirtual.DelayedCall(2, () => { base.Execute(); });
+
+            DOVirtual.DelayedCall(delay, () => { base.Execute(); });
         }
     }
 }

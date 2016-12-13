@@ -25,7 +25,7 @@ namespace Assets.Scripts.controller.commands.init
         {
             base.Execute();
 
-            aiModel.AddAIPlayer(Side.Dark);
+            //aiModel.AddAIPlayer(Side.Dark);
 
             var loadCells = (List<Cell>)settingsManager.GetSetting(SettingName.Cells);
 

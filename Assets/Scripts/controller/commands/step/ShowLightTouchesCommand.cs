@@ -22,7 +22,9 @@ namespace Assets.Scripts.controller.commands.step
 
             var allowStepCells = (Cell[])data;
 
-            var lightColor = playFieldModel.currentTurn == CellState.white ? Color.green : Color.red;
+            var lightColor = playFieldModel.currentTurn == CellState.white ?
+                lightTouchFactory.LightSideLightColor : lightTouchFactory.DarkSideLightColor;
+
             foreach (var allowStepCell in allowStepCells)
             {
                 var lightTouch = lightTouchFactory.Spawn(allowStepCell);

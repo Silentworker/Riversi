@@ -36,6 +36,7 @@ namespace Assets.Scripts.model.playfield
 
         public PlayFieldModel(IEventDispatcher dispatcher, DiContainer container) : base(dispatcher, container)
         {
+            CalcMode = false;
         }
 
         private byte oppositeTurn
@@ -52,8 +53,14 @@ namespace Assets.Scripts.model.playfield
 
         public bool isDeadlock
         {
-            get { return !isFinishGame && (allowedStepCells == null || allowedStepCells.Length == 0); }
+            get
+            {
+                var cells = allowedStepCells;
+                return !isFinishGame && (cells == null || cells.Length == 0);
+            }
         }
+
+        public bool CalcMode { get; set; }
 
         public int scoreBlack { get; private set; }
 
@@ -64,9 +71,9 @@ namespace Assets.Scripts.model.playfield
             get { return _cells.Cast<Cell>().Where(cell => cell.State == CellState.allow).ToArray(); }
         }
 
-        public Cell[] notEmptyCells
+        public Cell[] chipCells
         {
-            get { return _cells.Cast<Cell>().Where(cell => cell.State != CellState.empty).ToArray(); }
+            get { return _cells.Cast<Cell>().Where(cell => cell.State == CellState.white || cell.State == CellState.black).ToArray(); }
         }
 
         public void Init(Cell[,] cells = null, byte turn = 0)
@@ -98,6 +105,8 @@ namespace Assets.Scripts.model.playfield
                 #endregion
             }
 
+            Debug.LogWarningFormat("Init playfield. Current turn {0}", currentTurn == CellState.black ? "black" : "white");
+
             Analize();
 
             Logging();
@@ -125,7 +134,7 @@ namespace Assets.Scripts.model.playfield
             return _cells.Cast<Cell>().FirstOrDefault(cell => cell.X == X && cell.Y == Y);
         }
 
-        public List<Cell> MakeStepAndGetChangingCells(Cell stepCell)
+        public Cell[] MakeStepAndGetChangingCells(Cell stepCell)
         {
             var changingCells = ChangingCells(stepCell);
             foreach (var cell in changingCells)
@@ -143,7 +152,7 @@ namespace Assets.Scripts.model.playfield
             return changingCells;
         }
 
-        public List<Cell> ChangingCells(Cell cell)
+        public Cell[] ChangingCells(Cell cell)
         {
             var result = new List<Cell>();
 
@@ -181,7 +190,7 @@ namespace Assets.Scripts.model.playfield
                 }
             }
 
-            return result;
+            return result.ToArray();
         }
 
         public bool AllowStep(int X, int Y)
@@ -198,7 +207,7 @@ namespace Assets.Scripts.model.playfield
 
             foreach (var cell in _cells)
             {
-                if (cell.State == CellState.empty && ChangingCells(cell).Count > 0) cell.State = CellState.allow;
+                if (cell.State == CellState.empty && ChangingCells(cell).Length > 0) cell.State = CellState.allow;
             }
 
             scoreWhite = 0;
@@ -209,7 +218,7 @@ namespace Assets.Scripts.model.playfield
                 else if (cell.State == CellState.black) scoreBlack++;
             }
 
-            if (isDeadlock)
+            if (!CalcMode && isDeadlock)
             {
                 eventDispatcher.DispatchEvent(GameEvent.Deadlock);
                 SwitchStepOnDeadLock();

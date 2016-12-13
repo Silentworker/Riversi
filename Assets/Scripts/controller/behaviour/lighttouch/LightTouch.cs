@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.consts;
 using Assets.Scripts.controller.events;
-using Assets.Scripts.core;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.eventdispatcher;
 using Assets.Scripts.sw.core.touch;
@@ -13,6 +12,7 @@ namespace Assets.Scripts.controller.behaviour.lighttouch
     public class LightTouch : MonoBehaviour
     {
         private Material _material;
+
         [Inject]
         private IEventDispatcher eventDispatcher;
 

@@ -92,6 +92,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\controller\behaviour\game\GameControlls.cs" />
     <Compile Include="Assets\KriptoFX\DemoSources\ExplosionDemoGUI.cs" />
     <Compile Include="Assets\KriptoFX\DemoSources\ExplosionDemoReactivator.cs" />
     <Compile Include="Assets\KriptoFX\DemoSources\ExplosionPlatformActivator.cs" />
@@ -109,22 +110,27 @@
     <Compile Include="Assets\Scripts\consts\Duration.cs" />
     <Compile Include="Assets\Scripts\consts\Side.cs" />
     <Compile Include="Assets\Scripts\controller\behaviour\lighttouch\LightTouch.cs" />
+    <Compile Include="Assets\Scripts\controller\behaviour\mainMenu\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\controller\behaviour\mainMenu\PlayersMenu.cs" />
+    <Compile Include="Assets\Scripts\controller\behaviour\mainMenu\ResumeGameMenu.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\InitPlayFieldCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\InitMainMenuCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\ShowStatsCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\StartGameCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\ai\InterStepCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\ai\IsAIPlayerGuard.cs" />
     <Compile Include="Assets\Scripts\controller\commands\ai\MakeAIStepCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\init\InitGameCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\step\win\ShowGameResultsCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\InitPlayFieldCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\ShowStatsCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\StartGameCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\step\deadlock\ShowDeadLockCommand.cs" />
-    <Compile Include="Assets\Scripts\controller\commands\step\win\IsFinishGameGuard.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\init\InitGamePayload.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\HideLightsAndTurnTextCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\MakeStepCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\SaveGameCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\ShowLightTouchesCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\SpawnCellsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\commands\step\SpawnExplosionsCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\deadlock\ShowDeadLockCommand.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\win\IsFinishGameGuard.cs" />
+    <Compile Include="Assets\Scripts\controller\commands\step\win\ShowGameResultsCommand.cs" />
     <Compile Include="Assets\Scripts\controller\config\CommandsConfig.cs" />
     <Compile Include="Assets\Scripts\controller\config\ICommandsConfig.cs" />
     <Compile Include="Assets\Scripts\controller\events\GameEvent.cs" />

@@ -105,7 +105,7 @@ namespace Assets.Scripts.model.playfield
                 #endregion
             }
 
-            Debug.LogWarningFormat("Init playfield. Current turn {0}", currentTurn == CellState.black ? "black" : "white");
+            Debug.LogWarningFormat("InitMainMenu playfield. Current turn {0}", currentTurn == CellState.black ? "black" : "white");
 
             Analize();
 

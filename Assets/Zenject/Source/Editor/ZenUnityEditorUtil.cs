@@ -50,7 +50,7 @@ namespace Zenject
                 {
                     // Add a bit more context
                     throw new ZenjectException(
-                        "Scene '{0}' Failed To Init!".Fmt(sceneContext.gameObject.scene.name), e);
+                        "Scene '{0}' Failed To InitMainMenu!".Fmt(sceneContext.gameObject.scene.name), e);
                 }
             }
         }

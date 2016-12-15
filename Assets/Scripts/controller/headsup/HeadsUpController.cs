@@ -27,9 +27,9 @@ namespace Assets.Scripts.controller.headsup
         [Header("Side colors")]
         public Color DarkSideColor;
         public Color LightSideColor;
-        [Header("Buttons")]
-        public GameObject RestartButton;
-        public GameObject MenuButton;
+        [Header("Menus")]
+        public GameObject MainMenu;
+        public GameObject GameControlls;
 
         [Inject]
         private IEventDispatcher eventDispatcher;
@@ -90,17 +90,22 @@ namespace Assets.Scripts.controller.headsup
         public void ClearPromo()
         {
             PromoText.text = "";
-            if (_promoTween != null) { _promoTween.Kill(); }
+            if (_promoTween != null)
+            {
+                _promoTween.Kill();
+            }
         }
 
-        void Awake()
+        public void ShowMainMenu()
         {
-            RestartButton.GetComponent<Toucher>().OnTouchDownHandler += RestartGame;
+            GameControlls.SetActive(false);
+            MainMenu.SetActive(true);
         }
 
-        private void RestartGame()
+        public void ShowGameControlls()
         {
-            eventDispatcher.DispatchEvent(GameEvent.StartGame);
+            GameControlls.SetActive(true);
+            MainMenu.SetActive(false);
         }
     }
 }

@@ -4,12 +4,17 @@ namespace Assets.Scripts.consts
 {
     public class Side
     {
-        public static readonly byte Dark = CellState.black;
-        public static readonly byte Light = CellState.white;
+        public const byte Dark = CellState.black;
+        public const byte Light = CellState.white;
 
         public static bool Valid(byte side)
         {
             return side == Dark || side == Light;
+        }
+
+        public static byte Other(byte side)
+        {
+            return side == Dark ? Light : Dark;
         }
     }
 }

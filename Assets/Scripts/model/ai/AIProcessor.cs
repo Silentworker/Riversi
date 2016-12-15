@@ -47,10 +47,7 @@ namespace Assets.Scripts.model.ai
             }
 
             Debug.LogFormat("Cell {0}. MaxCount {1}", stepCell, maxChange);
-
             Debug.LogFormat("AI <<<<<<");
-
-
 
             return stepCell != null ? playFieldModel.GetCell(stepCell.X, stepCell.Y) : null;
         }

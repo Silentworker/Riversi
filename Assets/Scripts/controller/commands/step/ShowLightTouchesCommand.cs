@@ -1,10 +1,7 @@
-﻿using Assets.Scripts.consts;
-using Assets.Scripts.controller.behaviour.lighttouch;
+﻿using Assets.Scripts.controller.behaviour.lighttouch;
 using Assets.Scripts.controller.factory.lightTouch;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.command.async;
-using DG.Tweening;
-using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.controller.commands.step
@@ -13,6 +10,7 @@ namespace Assets.Scripts.controller.commands.step
     {
         [Inject]
         private ILightTouchFactory lightTouchFactory;
+
         [Inject]
         private IPlayFieldModel playFieldModel;
 
@@ -23,7 +21,8 @@ namespace Assets.Scripts.controller.commands.step
             var allowStepCells = (Cell[])data;
 
             var lightColor = playFieldModel.currentTurn == CellState.white ?
-                lightTouchFactory.LightSideLightColor : lightTouchFactory.DarkSideLightColor;
+                 lightTouchFactory.LightSideLightColor :
+                 lightTouchFactory.DarkSideLightColor;
 
             foreach (var allowStepCell in allowStepCells)
             {

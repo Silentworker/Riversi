@@ -18,7 +18,6 @@ namespace Assets.Scripts.core
 
         public void Init()
         {
-            DOVirtual.DelayedCall(0.1f, () => { eventDispatcher.DispatchEvent(GameEvent.InitGame); });
         }
     }
 }

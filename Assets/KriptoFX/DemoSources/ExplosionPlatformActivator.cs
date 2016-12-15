@@ -15,7 +15,7 @@ public class ExplosionPlatformActivator : MonoBehaviour
     void Start()
     {
         currentRepeatTime = DefaultRepeatTime;
-        Invoke("Init", TimeDelay);
+        Invoke("InitMainMenu", TimeDelay);
     }
 
     void Init()

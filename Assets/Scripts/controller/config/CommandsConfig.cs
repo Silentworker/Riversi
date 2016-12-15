@@ -16,6 +16,7 @@ namespace Assets.Scripts.controller.config
 
         public void Init()
         {
+            commandsMap.Map(GameEvent.InitMainMenu, typeof(InitMainMenuCommand));
             commandsMap.Map(GameEvent.InitGame, typeof(InitGameCommand));
             commandsMap.Map(GameEvent.StartGame, typeof(StartGameCommand));
             commandsMap.Map(GameEvent.MakeStep, typeof(MakeStepCommand));

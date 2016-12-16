@@ -48,7 +48,11 @@ namespace Assets.Scripts.model.playfield
 
         public bool isFinishGame
         {
-            get { return scoreBlack + scoreWhite >= Distance.PlayFieldSize * Distance.PlayFieldSize; }
+            get
+            {
+                return scoreBlack + scoreWhite >= Distance.PlayFieldSize * Distance.PlayFieldSize ||
+                    scoreBlack == 0 || scoreWhite == 0;
+            }
         }
 
         public bool isDeadlock

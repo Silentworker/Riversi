@@ -35,7 +35,8 @@ namespace Assets.Scripts.controller.headsup
         [Inject]
         private IEventDispatcher eventDispatcher;
 
-        private Tween _promoTween;
+        private Tween _promoClearTween;
+        private Tween _promoFadeOutTween;
 
         public void ShowTurn(byte turn)
         {
@@ -79,21 +80,43 @@ namespace Assets.Scripts.controller.headsup
 
         private void ShowPromo(string text, float duration = float.NaN)
         {
-            if (_promoTween != null) { _promoTween.Kill(); }
+            KillPromoTweens();
 
+            var color = PromoText.color;
+            PromoText.color = new Color(color.r, color.g, color.b, 0f);
+
+            PromoText.DOFade(1f, Duration.StatsTextFadeAnimation);
             PromoText.text = text;
             if (!float.IsNaN(duration))
             {
-                _promoTween = DOVirtual.DelayedCall(duration, ClearPromo);
+                _promoFadeOutTween = DOVirtual.DelayedCall(duration, FadeOutPromo);
             }
         }
 
-        public void ClearPromo()
+        public void FadeOutPromo()
+        {
+            _promoClearTween = PromoText.DOFade(0f, Duration.StatsTextFadeAnimation);
+            DOVirtual.DelayedCall(Duration.StatsTextFadeAnimation, ClearPromoText);
+        }
+
+        private void ClearPromoText()
         {
             PromoText.text = "";
-            if (_promoTween != null)
+            KillPromoTweens();
+        }
+
+        private void KillPromoTweens()
+        {
+            if (_promoFadeOutTween != null)
             {
-                _promoTween.Kill();
+                _promoFadeOutTween.Kill();
+                _promoFadeOutTween = null;
+            }
+
+            if (_promoClearTween != null)
+            {
+                _promoClearTween.Kill();
+                _promoClearTween = null;
             }
         }
 

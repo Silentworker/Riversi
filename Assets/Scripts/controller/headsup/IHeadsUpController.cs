@@ -12,7 +12,7 @@
 
         void ShowSmallPromo(string text, float duration = float.NaN);
 
-        void ClearPromo();
+        void FadeOutPromo();
 
         void ShowMainMenu();
 

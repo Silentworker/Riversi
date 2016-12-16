@@ -33,7 +33,7 @@ namespace Assets.Scripts.controller.commands
             _initPlayFilddata = data;
 
             headsUpController.ShowGameControlls();
-            headsUpController.ClearPromo();
+            headsUpController.FadeOutPromo();
 
             CompleteHandler += OnComplete;
 

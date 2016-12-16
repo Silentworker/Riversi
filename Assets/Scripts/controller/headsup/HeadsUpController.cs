@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.consts;
+using Assets.Scripts.controller.behaviour.mainMenu;
 using Assets.Scripts.controller.events;
 using Assets.Scripts.model.playfield;
 using Assets.Scripts.sw.core.eventdispatcher;
@@ -100,6 +101,7 @@ namespace Assets.Scripts.controller.headsup
         {
             GameControlls.SetActive(false);
             MainMenu.SetActive(true);
+            GetComponent<MainMenu>().InitMainMenu();
         }
 
         public void ShowGameControlls()

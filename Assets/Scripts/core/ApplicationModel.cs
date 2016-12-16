@@ -18,6 +18,7 @@ namespace Assets.Scripts.core
 
         public void Init()
         {
+            eventDispatcher.DispatchEvent(GameEvent.InitMainMenu);
         }
     }
 }
